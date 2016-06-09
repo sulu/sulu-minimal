@@ -1,7 +1,6 @@
 imports:
     - { resource: parameters.yml }
     - { resource: services.yml }
-    - { resource: sulu.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -10,7 +9,7 @@ parameters:
 
 framework:
     #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/%sulu.context%/routing.yml"
@@ -53,6 +52,14 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
 
+# Doctrine cache providers
+doctrine_cache:
+    providers:
+        phpcr_meta:
+            type: "%phpcr_cache%"
+        phpcr_nodes:
+            type: "%phpcr_cache%"
+
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
@@ -63,9 +70,50 @@ swiftmailer:
 
 # MassiveSearch Configuration
 massive_search:
+    metadata:
+        prefix: sulu
+    persistence:
+        doctrine_orm:
+            enabled: true
     adapters:
         zend_lucene:
             basepath: "%kernel.var_dir%/indexes"
+
+# SuluCore Configuration
+sulu_core:
+    phpcr:
+        backend:    "%phpcr_backend%"
+        workspace:  "%phpcr_workspace%"
+        username:   "%phpcr_user%"
+        password:   "%phpcr_pass%"
+    webspace:
+        config_dir: "%kernel.root_dir%/Resources/webspaces"
+    content:
+        structure:
+            default_type:
+                snippet: "default"
+            paths:
+                homepage:
+                    path: "%kernel.root_dir%/Resources/templates/pages"
+                    type: "home"
+                page:
+                    path: "%kernel.root_dir%/Resources/templates/pages"
+                    type: "page"
+                snippet:
+                    path: "%kernel.root_dir%/Resources/templates/snippets"
+                    type: "snippet"
+
+# SuluWebsocket Configuration
+sulu_websocket:
+    server:
+        http_host: "%websocket_url%"
+        port: "%websocket_port%"
+
+# SuluHttpCache Configuration
+sulu_http_cache:
+    proxy_client:
+        symfony:
+            enabled: true
 
 # SuluMedia Configuration
 sulu_media:
@@ -73,6 +121,7 @@ sulu_media:
         local:
             path: "%kernel.var_dir%/uploads/media"
 
+# DubtureFFmpeg Configuration
 dubture_f_fmpeg:
     ffmpeg_binary: /usr/local/bin/ffmpeg # path to ffmpeg
     ffprobe_binary: /usr/local/bin/ffprobe # path to ffprobe

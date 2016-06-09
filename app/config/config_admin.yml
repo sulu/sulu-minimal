@@ -1,0 +1,7 @@
+imports:
+    - { resource: security_admin.yml }
+
+# Sulu Bundles
+sulu_admin:
+    name: "%sulu_admin.name%"
+    email: "%sulu_admin.email%"
