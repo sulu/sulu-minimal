@@ -43,9 +43,7 @@ abstract class AbstractKernel extends SuluKernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
 
             // rest
-            new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
-            new Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),
 
             // massive
             new Massive\Bundle\SearchBundle\MassiveSearchBundle(),
@@ -99,7 +97,16 @@ abstract class AbstractKernel extends SuluKernel
         $loader->load(
             $this->rootDir . DIRECTORY_SEPARATOR
             . 'config' . DIRECTORY_SEPARATOR
-            . $this->getContext() . DIRECTORY_SEPARATOR
+            . 'config.yml'
+        );
+        $loader->load(
+            $this->rootDir . DIRECTORY_SEPARATOR
+            . 'config' . DIRECTORY_SEPARATOR
+            . 'config_' . $this->getContext() . '.yml'
+        );
+        $loader->load(
+            $this->rootDir . DIRECTORY_SEPARATOR
+            . 'config' . DIRECTORY_SEPARATOR
             . 'config_' . $this->getEnvironment() . '.yml'
         );
     }

@@ -10,9 +10,9 @@ _profiler:
     resource: "@WebProfilerBundle/Resources/config/routing/profiler.xml"
     prefix:   /_profiler
 
-_main:
-    resource: routing.yml
-
 _portal_errors:
     resource: "@SuluWebsiteBundle/Resources/config/routing_error.yml"
     type: portal
+
+_main:
+    resource: routing.yml

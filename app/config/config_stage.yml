@@ -1,9 +1,6 @@
-imports:
-    - { resource: config.yml }
-
 framework:
     router:
-        resource: "%kernel.root_dir%/config/admin/routing_stage.yml"
+        resource: "%kernel.root_dir%/config/%sulu.context%/routing_stage.yml"
 
 monolog:
     handlers:
