@@ -9,6 +9,10 @@
     font-size: 14px;
     cursor: pointer;
 }
+._2hY3RqFqkbiA3UmPKKFjHI > * {
+        /* IE11 will emulate 3D effect while clicking button without this */
+        position: relative;
+    }
 ._2hY3RqFqkbiA3UmPKKFjHI:first-child {
         border-left: 1px #f4f4f4 solid;
     }
@@ -32,7 +36,8 @@
     height: 60px;
     margin: 0;
     background: #fff;
-    box-shadow: 0 3px 2px #dee0e7;
+    -webkit-box-shadow: 0 3px 2px #dee0e7;
+            box-shadow: 0 3px 2px #dee0e7;
 }
 /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
 
@@ -113,7 +118,8 @@ figure {
  */
 
 hr {
-  box-sizing: content-box; /* 1 */
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box; /* 1 */
   height: 0; /* 1 */
   overflow: visible; /* 2 */
 }
@@ -149,7 +155,8 @@ a {
 abbr[title] {
   border-bottom: none; /* 1 */
   text-decoration: underline; /* 2 */
-  text-decoration: underline dotted; /* 2 */
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted; /* 2 */
 }
 
 /**
@@ -356,7 +363,8 @@ fieldset {
  */
 
 legend {
-  box-sizing: border-box; /* 1 */
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box; /* 1 */
   color: inherit; /* 2 */
   display: table; /* 1 */
   max-width: 100%; /* 1 */
@@ -389,7 +397,8 @@ textarea {
 
 [type="checkbox"],
 [type="radio"] {
-  box-sizing: border-box; /* 1 */
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box; /* 1 */
   padding: 0; /* 2 */
 }
 
@@ -495,12 +504,4 @@ main {
 
 h1 {
     color: #112a46;
-}
-
-._3BFbvvUzuUNBeDZq-ttMEU {
-    background: red;
-}
-
-.v9hZx8GoOmsA-HSS9si0Y {
-    position: relative;
 }

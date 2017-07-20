@@ -8,6 +8,7 @@
         "sulu-admin-bundle": "file:vendor/sulu/sulu/src/Sulu/Bundle/AdminBundle/Resources/js"
     },
     "devDependencies": {
+        "autoprefixer": "^7.1.2",
         "babel-core": "^6.25.0",
         "babel-loader": "^7.1.1",
         "babel-plugin-transform-class-properties": "^6.24.1",
