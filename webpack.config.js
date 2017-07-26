@@ -78,7 +78,4 @@ module.exports = {
             'Promise': 'promise-polyfill',
         })
     ],
-    node: {
-        fs: 'empty',
-    }
 };
