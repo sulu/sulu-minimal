@@ -36,6 +36,7 @@ module.exports = {
                             options: {
                                 modules: true,
                                 importLoaders: 1,
+                                camelCase: true,
                             },
                         },
                         'postcss-loader',
