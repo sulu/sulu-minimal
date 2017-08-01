@@ -37,6 +37,7 @@ module.exports = {
                                 modules: true,
                                 importLoaders: 1,
                                 camelCase: true,
+                                localIdentName: '[local]--[hash:base64:10]',
                             },
                         },
                         'postcss-loader',
