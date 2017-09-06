@@ -5,7 +5,7 @@ imports:
 #    validation:
 #        cache: validator.mapping.cache.doctrine.apcu
 #    serializer:
-#        cache: serializer.mapping.cache.apcu
+#        cache: doctrine.cache.apcu
 
 #doctrine:
 #    orm:
