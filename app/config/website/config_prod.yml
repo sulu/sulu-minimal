@@ -3,15 +3,15 @@ imports:
 
 #framework:
 #    validation:
-#        cache: validator.mapping.cache.doctrine.apc
+#        cache: validator.mapping.cache.doctrine.apcu
 #    serializer:
-#        cache: serializer.mapping.cache.apc
+#        cache: serializer.mapping.cache.apcu
 
 #doctrine:
 #    orm:
-#        metadata_cache_driver: apc
-#        result_cache_driver: apc
-#        query_cache_driver: apc
+#        metadata_cache_driver: apcu
+#        result_cache_driver: apcu
+#        query_cache_driver: apcu
 
 monolog:
     handlers:
