@@ -6,6 +6,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 
 const entries = glob.sync('./vendor/**/Resources/js/index.js');
+const entriesCount = entries.length;
 const basePath = 'adminV2';
 
 entries.unshift('core-js/fn/array/includes');
@@ -75,6 +76,9 @@ module.exports = {
     },
     plugins: [
         new CleanObsoleteChunksPlugin(),
+        new webpack.DefinePlugin({
+            BUNDLE_ENTRIES_COUNT: entriesCount,
+        }),
         new ManifestPlugin({
             fileName: basePath + '/manifest.json',
         }),
