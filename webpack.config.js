@@ -63,6 +63,17 @@ module.exports = {
                 }),
             },
             {
+                test:/\.(jpg|gif|png)(\?.*$|$)/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '/' + basePath + '/images/[name].[hash].[ext]',
+                        },
+                    },
+                ],
+            },
+            {
                 test:/\.(svg|ttf|woff|woff2|eot)(\?.*$|$)/,
                 use: [
                     {
