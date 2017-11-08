@@ -1,10 +1,8 @@
-language: php
-
-php: 7.1
-
-before_script:
-    - composer install
-    - nvm install node; npm install -g npm; npm install
-
-script:
-    - npm run build
+matrix:
+    include:
+        - language: php
+          php: 7.1
+          script: exit 0
+        - language: node_js
+          node_js: "8"
+          script: npm run build
