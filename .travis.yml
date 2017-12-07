@@ -29,7 +29,7 @@ install:
 
 script:
   # Test if installation works
-  - bin/adminconsole sulu:build --dev --no-interaction
+  - bin/adminconsole sulu:build dev --no-interaction
   # Test if PHPUnit isntallation works
   - SYMFONY_ENV=test bin/simple-phpunit
 
