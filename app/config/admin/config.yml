@@ -9,4 +9,6 @@ sulu_admin:
 framework:
     session:
         cookie_path: /admin
+    fragments:
+        path: /admin/_fragments
 
