@@ -5,3 +5,8 @@ imports:
 sulu_admin:
     name: "%sulu_admin.name%"
     email: "%sulu_admin.email%"
+
+framework:
+    session:
+        cookie_path: /admin
+
