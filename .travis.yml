@@ -10,7 +10,7 @@ matrix:
   include:
     - php: 5.5
       env:
-        - COMPOSER_FLAGS="--prefer-dist --no-interaction --prefer-lowest"
+        - COMPOSER_FLAGS="--prefer-dist --no-interaction"
     - php: 7.0
       env:
         - COMPOSER_FLAGS="--prefer-dist --no-interaction"
