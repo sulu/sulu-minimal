@@ -1,0 +1,35 @@
+sudo: false
+
+language: php
+
+cache:
+  directories:
+    - "$HOME/.composer/cache/files"
+
+matrix:
+  include:
+    - php: 5.5
+      env:
+        - COMPOSER_FLAGS="--prefer-dist --no-interaction --prefer-lowest"
+    - php: 7.0
+      env:
+        - COMPOSER_FLAGS="--prefer-dist --no-interaction"
+
+before_install:
+  - composer self-update
+
+install:
+  # Install dependencies
+  - travis_retry composer update $COMPOSER_FLAGS
+  - composer info -i
+  # Create database for build test
+  - bin/adminconsole doctrine:database:create
+  # Create database for unit test
+  - bin/adminconsole doctrine:database:create --env=test
+
+script:
+  # Test if installation works
+  - bin/adminconsole sulu:build --dev --no-interaction
+  # Test if PHPUnit isntallation works
+  - SYMFONY_ENV=test bin/simple-phpunit
+
