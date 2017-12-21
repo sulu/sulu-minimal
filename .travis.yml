@@ -17,6 +17,7 @@ matrix:
 
 before_install:
   - composer self-update
+  - phpenv config-add tests/travis.php.ini
 
 install:
   # Install dependencies
