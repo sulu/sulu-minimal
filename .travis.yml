@@ -25,18 +25,18 @@ install:
   - npm install -g npm
   - npm install
   # Create database for build test
-  - bin/adminconsole doctrine:database:create
+  - bin/console doctrine:database:create
   # Create database for unit test
-  - bin/adminconsole doctrine:database:create --env=test
+  - bin/console doctrine:database:create --env=test
 
 script:
   # Test if installation works
-  - bin/adminconsole sulu:build dev --no-interaction
+  - bin/console sulu:build dev --no-interaction
   # Test if PHPUnit installation works
   - SYMFONY_ENV=test bin/simple-phpunit
   # Lint Twig files
-  - bin/adminconsole lint:twig app/Resources/views
+  - bin/console lint:twig app/Resources/views
   # Lint Yaml files
-  - bin/adminconsole lint:yaml app/config
+  - bin/console lint:yaml app/config
   # Test webpack build
   - npm run build

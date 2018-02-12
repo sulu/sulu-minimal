@@ -11,6 +11,6 @@
 
 use Sulu\Component\HttpCache\HttpCache;
 
-class WebsiteCache extends HttpCache
+class AppCache extends HttpCache
 {
 }

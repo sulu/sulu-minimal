@@ -7,16 +7,23 @@ imports:
 parameters:
     locale: en
 
+# SuluAdmin Configuration
+sulu_admin:
+    name: "%sulu_admin.name%"
+    email: "%sulu_admin.email%"
+
 framework:
     #esi:             ~
     translator: { fallbacks: ["%locale%"] }
     secret: "%secret%"
     router:
-        resource: "%kernel.root_dir%/config/%sulu.context%/routing_%kernel.environment%.yml"
+        resource: "%kernel.root_dir%/config/routing_%kernel.environment%.yml"
         strict_requirements: ~
     form:            ~
     csrf_protection: ~
     validation:      { enable_annotations: true }
+    assets:
+        json_manifest_path: "%kernel.project_dir%/web/adminV2/manifest.json"
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
@@ -25,9 +32,24 @@ framework:
     trusted_hosts:   ~
     session:
         handler_id: session.handler.native_file
-        save_path: "%kernel.var_dir%/sessions/%sulu.context%/%kernel.environment%"
+        save_path: "%kernel.var_dir%/sessions/%kernel.environment%"
     fragments:       ~
     http_method_override: true
+
+# SymfonyCMF Configuration
+cmf_routing:
+    chain:
+        routers_by_id:
+            router.default: 100
+            cmf_routing.dynamic_router: 20
+    dynamic:
+        enabled: true
+        route_provider_service_id: sulu_website.provider.content
+
+# Exception Controller
+fos_rest:
+    exception:
+        enabled: false # temporary fix for the exception controller until FOSRestBundle is updated to 2.0
 
 # Twig Configuration
 twig:

@@ -1,102 +1,114 @@
-sulu_tag:
+# Website
+sulu_media:
+    resource: "@SuluMediaBundle/Resources/config/routing_website.yml"
+
+sulu_search:
+    type: portal
+    resource: "@SuluSearchBundle/Resources/config/routing_website.xml"
+
+sulu_website:
+    resource: "@SuluWebsiteBundle/Resources/config/routing_website.yml"
+
+# Admin
+sulu_admin:
+   resource: "@SuluAdminBundle/Resources/config/routing.yml"
+   prefix: /admin
+
+sulu_admin_tag:
     resource: "@SuluTagBundle/Resources/config/routing.yml"
     prefix:   /admin/tag
 
-sulu_tag_api:
+sulu_admin_tag_api:
     resource: "@SuluTagBundle/Resources/config/routing_api.yml"
-    prefix:   /admin/api
+    prefix:   /admin/
 
-sulu_admin:
-    resource: "@SuluAdminBundle/Resources/config/routing.yml"
-    prefix: /admin
-
-sulu_contact:
+sulu_admin_contact_admin:
     resource: "@SuluContactBundle/Resources/config/routing.yml"
     prefix: /admin/contact
 
-sulu_contact_api:
+sulu_admin_contact_api:
     type: rest
     resource: "@SuluContactBundle/Resources/config/routing_api.yml"
     prefix: /admin/api
 
-sulu_security:
+sulu_admin_security:
     resource: "@SuluSecurityBundle/Resources/config/routing.xml"
     prefix: /admin/security
 
-sulu_security_api:
+sulu_admin_security_api:
     type: rest
     resource: "@SuluSecurityBundle/Resources/config/routing_api.xml"
     prefix: /admin/api
 
-sulu_content:
+sulu_admin_content:
     resource: "@SuluContentBundle/Resources/config/routing.yml"
     prefix: /admin/content
 
-sulu_content_api:
+sulu_admin_content_api:
     type: rest
     resource: "@SuluContentBundle/Resources/config/routing_api.yml"
     prefix: /admin/api
 
-sulu_media:
+sulu_admin_media:
     resource: "@SuluMediaBundle/Resources/config/routing.yml"
     prefix: /admin/media
 
-sulu_media_website:
+sulu_admin_media_website:
     resource: "@SuluMediaBundle/Resources/config/routing_website.yml"
 
-sulu_media_api:
+sulu_admin_media_api:
     type: rest
     resource: "@SuluMediaBundle/Resources/config/routing_api.yml"
     prefix: /admin/api
 
-sulu_category:
+sulu_admin_category:
     resource: "@SuluCategoryBundle/Resources/config/routing.yml"
     prefix: /admin/category
 
-sulu_category_api:
+sulu_admin_category_api:
     type: rest
     resource: "@SuluCategoryBundle/Resources/config/routing_api.yml"
     prefix: /admin/api
 
-sulu_snippet_api:
+sulu_admin_snippet_api:
     resource: "@SuluSnippetBundle/Resources/config/routing_api.yml"
     type: rest
     prefix: /admin/api
 
-sulu_location:
+sulu_admin_location:
     resource: "@SuluLocationBundle/Resources/config/routing.yml"
     prefix: /admin/location
 
-sulu_website:
+sulu_admin_website:
     resource: "@SuluWebsiteBundle/Resources/config/routing.yml"
     prefix: /admin/website
 
-sulu_website_api:
+sulu_admin_website_api:
     resource: "@SuluWebsiteBundle/Resources/config/routing_api.yml"
     type: rest
     prefix: /admin/api
 
-sulu_websocket:
+sulu_admin_websocket:
     type: rest
     resource: "@SuluWebsocketBundle/Resources/config/routing.yml"
     prefix: /admin/websocket
 
-sulu_core:
+sulu_admin_core:
     type: rest
     resource: "@SuluCoreBundle/Resources/config/routing_api.xml"
     prefix: /admin/api
 
-sulu_custom_urls_api:
+sulu_admin_custom_urls_api:
     type: rest
     resource: "@SuluCustomUrlBundle/Resources/config/routing_api.yml"
     prefix: /admin/api
 
-sulu_route_api:
+sulu_admin_route_api:
     type: rest
     resource: "@SuluRouteBundle/Resources/config/routing_api.xml"
     prefix: /admin/api
 
 # for preview
-sulu_search:
+sulu_admin_search:
     resource: "@SuluSearchBundle/Resources/config/routing.yml"
     prefix: /admin/search

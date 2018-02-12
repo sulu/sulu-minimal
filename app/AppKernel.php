@@ -9,14 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-use Sulu\Component\HttpKernel\SuluKernel;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
 /**
  * The abstract kernel holds everything that is common between
  * AdminKernel and WebsiteKernel.
  */
-abstract class AbstractKernel extends SuluKernel
+class AppKernel extends Kernel
 {
     /**
      * {@inheritdoc}
@@ -33,6 +33,10 @@ abstract class AbstractKernel extends SuluKernel
             new Sulu\Bundle\CoreBundle\SuluCoreBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
+            new Symfony\Bundle\SecurityBundle\SecurityBundle(),
+
+            // symfony cmf
+            new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
 
             // doctrine extensions
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
@@ -48,6 +52,9 @@ abstract class AbstractKernel extends SuluKernel
             new Massive\Bundle\SearchBundle\MassiveSearchBundle(),
 
             // sulu
+            new Sulu\Bundle\AdminBundle\SuluAdminBundle(),
+            new Sulu\Bundle\CollaborationBundle\SuluCollaborationBundle(),
+            new Sulu\Bundle\PreviewBundle\SuluPreviewBundle(),
             new Sulu\Bundle\SearchBundle\SuluSearchBundle(),
             new Sulu\Bundle\PersistenceBundle\SuluPersistenceBundle(),
             new Sulu\Bundle\ContactBundle\SuluContactBundle(),
@@ -97,7 +104,6 @@ abstract class AbstractKernel extends SuluKernel
         $loader->load(
             $this->rootDir . DIRECTORY_SEPARATOR
             . 'config' . DIRECTORY_SEPARATOR
-            . $this->getContext() . DIRECTORY_SEPARATOR
             . 'config_' . $this->getEnvironment() . '.yml'
         );
     }
@@ -110,7 +116,6 @@ abstract class AbstractKernel extends SuluKernel
         return dirname($this->rootDir) . DIRECTORY_SEPARATOR
         . 'var' . DIRECTORY_SEPARATOR
         . 'cache' . DIRECTORY_SEPARATOR
-        . $this->getContext() . DIRECTORY_SEPARATOR
         . $this->environment;
     }
 
@@ -121,8 +126,7 @@ abstract class AbstractKernel extends SuluKernel
     {
         return dirname($this->rootDir) . DIRECTORY_SEPARATOR
         . 'var' . DIRECTORY_SEPARATOR
-        . 'logs' . DIRECTORY_SEPARATOR
-        . $this->getContext();
+        . 'logs';
     }
 
     protected function getKernelParameters()

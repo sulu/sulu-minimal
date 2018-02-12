@@ -8,10 +8,8 @@
             "": "src/"
         },
         "classmap": [
-            "app/AbstractKernel.php",
-            "app/AdminKernel.php",
-            "app/WebsiteCache.php",
-            "app/WebsiteKernel.php"
+            "app/AppKernel.php",
+            "app/AppCache.php"
         ]
     },
     "autoload-dev": {
