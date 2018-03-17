@@ -1,3 +1,6 @@
+# js
+src/node_modules
+
 # app
 /app/bootstrap.php.cache
 /app/config/parameters.yml

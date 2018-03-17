@@ -1,0 +1,10 @@
+[options]
+esproposal.decorators=ignore
+module.name_mapper='.+\.s?css' -> 'empty/object'
+
+[ignore]
+.*/node_modules/config-chain/.*
+.*/node_modules/findup/.*
+.*/node_modules/jss/.*
+.*/node_modules/stylelint/.*
+.*/vendor/symfony/symfony/.*
