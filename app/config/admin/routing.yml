@@ -100,3 +100,9 @@ sulu_route_api:
 sulu_search:
     resource: "@SuluSearchBundle/Resources/config/routing.yml"
     prefix: /admin/search
+
+# sylius
+sylius_admin_api:
+    type: rest
+    resource: "@ProductBundle/Resources/config/routing.xml"
+    prefix: /admin/api

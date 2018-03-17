@@ -1,0 +1,6 @@
+sylius_product:
+    resources:
+        product:
+            classes:
+                model: Sulu\Bundle\ProductBundle\Entity\Product
+                repository: Sulu\Bundle\ProductBundle\Repository\ProductRepository

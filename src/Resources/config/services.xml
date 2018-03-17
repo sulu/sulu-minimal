@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="sulu_sylius_product.admin" class="Sulu\Bundle\ProductBundle\Admin\SyliusProductAdmin"
+                 public="false">
+            <argument type="string">%sulu_admin.name%</argument>
+
+            <tag name="sulu.admin"/>
+            <tag name="sulu.context" context="admin"/>
+        </service>
+
+        <service id="sulu_sylius_product.locale_context"
+                 class="Sulu\Bundle\ProductBundle\Locale\RequestLocaleContext">
+            <argument type="service" id="request_stack"/>
+            <argument type="service" id="sylius.locale_provider"/>
+
+            <tag name="sylius.context.locale" priority="64"/>
+            <tag name="sulu.context" context="admin"/>
+        </service>
+    </services>
+</container>

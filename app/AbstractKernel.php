@@ -71,6 +71,17 @@ abstract class AbstractKernel extends SuluKernel
 
             // tools
             new Massive\Bundle\BuildBundle\MassiveBuildBundle(),
+
+            // sylius
+            new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
+            new winzou\Bundle\StateMachineBundle\winzouStateMachineBundle(),
+            new Sylius\Bundle\ProductBundle\SyliusProductBundle(),
+            new Sylius\Bundle\AttributeBundle\SyliusAttributeBundle(),
+            new Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),
+            new Sylius\Bundle\LocaleBundle\SyliusLocaleBundle(),
+
+            // sulu-sylius
+            new Sulu\Bundle\ProductBundle\ProductBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'])) {

@@ -137,3 +137,9 @@ sulu_media:
 services:
     jms_serializer.cache_naming_strategy: "@sulu_core.serialize_caching_strategy"
 
+# sylius
+stof_doctrine_extensions:
+    orm:
+        default:
+            sluggable: true
+            timestampable: true

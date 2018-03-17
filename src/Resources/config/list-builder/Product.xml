@@ -1,0 +1,28 @@
+<class xmlns="http://schemas.sulu.io/class/general"
+       xmlns:orm="http://schemas.sulu.io/class/doctrine"
+       xmlns:list="http://schemas.sulu.io/class/list">
+    <orm:joins name="translation">
+        <orm:join>
+            <orm:entity-name>%sylius.model.product_translation.class%</orm:entity-name>
+            <orm:field-name>%sylius.model.product.class%.translations</orm:field-name>
+            <orm:condition>%sylius.model.product_translation.class%.locale = ':locale'</orm:condition>
+        </orm:join>
+    </orm:joins>
+
+    <properties>
+        <property name="id" display="always" list:translation="public.id">
+            <orm:field-name>id</orm:field-name>
+            <orm:entity-name>%sylius.model.product.class%</orm:entity-name>
+        </property>
+        <property name="code" display="always" list:translation="public.code">
+            <orm:field-name>code</orm:field-name>
+            <orm:entity-name>%sylius.model.product.class%</orm:entity-name>
+        </property>
+        <property name="name" display="always" list:translation="public.name">
+            <orm:field-name>name</orm:field-name>
+            <orm:entity-name>%sylius.model.product_translation.class%</orm:entity-name>
+
+            <orm:joins ref="translation"/>
+        </property>
+    </properties>
+</class>
