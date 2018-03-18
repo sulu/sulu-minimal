@@ -1,19 +1,15 @@
 // @flow
 import React from 'react';
+import {observer} from 'mobx-react';
+import {action} from 'mobx';
 import Text from './Text';
 import Integer from './Integer';
 import Select from './Select';
-import Requester from 'sulu-admin-bundle/services/Requester/Requester';
+import AttributesAutoComplete from './AttributesAutoComplete';
+import Attribute from './Attribute';
 
-const TYPE_MAP = {
-    text: Text,
-    integer: Integer,
-    select: Select,
-};
-
+@observer
 export default class ProductAttributes extends React.Component<*> {
-    input;
-
     handleChange = (code, attributeValue) => {
         const {
             value,
@@ -31,29 +27,14 @@ export default class ProductAttributes extends React.Component<*> {
         onChange(newValue);
     };
 
-    setInput = (input) => {
-        this.input = input;
-    };
+    @action
+    onAddAttribute = (attribute) => {
+        const {
+            value,
+            onChange,
+        } = this.props;
 
-    handleClick = () => {
-        const locale = 'en'; // FIXME get locale
-
-        Requester.get('/admin/api/attributes/' + this.input.value + '?locale=' + locale).then((response) => {
-            const {
-                value,
-                onChange,
-            } = this.props;
-
-            let newValue = value.peek();
-
-            newValue.push(response);
-
-            onChange(newValue);
-
-            this.input.value = '';
-        });
-
-        return false;
+        onChange([...value, attribute]);
     };
 
     render() {
@@ -63,30 +44,9 @@ export default class ProductAttributes extends React.Component<*> {
 
         return (
             <div>
-                <div>
-                    <input ref={this.setInput}/>
-                    <button onClick={this.handleClick.bind(this)}>Add</button>
-                </div>
+                <AttributesAutoComplete onChange={this.onAddAttribute}/>
 
-                {value && value.map((attribute) => {
-                    if (!TYPE_MAP[attribute.type]) {
-                        return attribute.type;
-                    }
-
-                    const Component = TYPE_MAP[attribute.type];
-
-                    return (
-                        <div>
-                            <label>{attribute.name}</label>
-                            <Component
-                                value={attribute.value}
-                                configuration={attribute.configuration}
-                                code={attribute.code}
-                                onChange={this.handleChange}
-                            />
-                        </div>
-                    );
-                })}
+                {value && value.map((attribute) => <Attribute onChange={this.handleChange} attribute={attribute}/>)}
             </div>
         );
     }

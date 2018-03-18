@@ -1,0 +1,18 @@
+{
+    "name": "sulu-product-bundle",
+    "license": "MIT",
+    "dependencies": {
+        "classnames": "^2.2.5",
+        "fast-deep-equal": "^1.0.0",
+        "sulu-admin-bundle": "file:../../../vendor/sulu/sulu/src/Sulu/Bundle/AdminBundle/Resources/js"
+    },
+    "devDependencies": {
+        "enzyme": "^3.3.0",
+        "pretty": "^2.0.0"
+    },
+    "peerDependencies": {
+        "react": "^16.2.0",
+        "mobx": "^4.0.0",
+        "mobx-react": "^5.0.0"
+    }
+}

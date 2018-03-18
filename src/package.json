@@ -37,7 +37,6 @@
         "identity-obj-proxy": "^3.0.0",
         "jest": "^22.4.0",
         "mobx": "^4.0.0",
-        "mobx-react": "^5.0.0",
         "null-loader": "^0.1.1",
         "postcss-calc": "^6.0.1",
         "postcss-hexrgba": "^1.0.0",

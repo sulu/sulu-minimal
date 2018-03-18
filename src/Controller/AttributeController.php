@@ -41,6 +41,11 @@ class AttributeController extends RestController implements ClassResourceInterfa
         }
         $listBuilder->addSelectField($this->fieldDescriptors['configuration']);
 
+        if ($search = $request->get('search')) {
+            $listBuilder->search($search);
+            $listBuilder->addSearchField($this->fieldDescriptors['code']);
+        }
+
         $listResponse = $listBuilder->execute();
 
         if (null !== $idsParameter) {
@@ -83,6 +88,7 @@ class AttributeController extends RestController implements ClassResourceInterfa
                     'id' => $attribute->getId(),
                     'code' => $attribute->getCode(),
                     'name' => $attribute->getName(),
+                    'type' => $attribute->getType(),
                     'configuration' => $attribute->getConfiguration(),
                 ]
             )

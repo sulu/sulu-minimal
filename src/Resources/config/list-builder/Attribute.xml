@@ -18,6 +18,10 @@
             <orm:field-name>code</orm:field-name>
             <orm:entity-name>%sylius.model.product_attribute.class%</orm:entity-name>
         </property>
+        <property name="type" display="always" list:translation="public.type">
+            <orm:field-name>type</orm:field-name>
+            <orm:entity-name>%sylius.model.product_attribute.class%</orm:entity-name>
+        </property>
         <property name="name" display="always" list:translation="public.name">
             <orm:field-name>name</orm:field-name>
             <orm:entity-name>%sylius.model.product_attribute_translation.class%</orm:entity-name>

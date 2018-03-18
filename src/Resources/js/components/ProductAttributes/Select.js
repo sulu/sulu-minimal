@@ -27,7 +27,9 @@ export default class Text extends React.Component<*> {
                         <option
                             value={key}
                             selected={value && value.indexOf(key) > -1}
-                        >{configuration.choices[key][locale]}</option>
+                        >
+                            {configuration.choices[key][locale]}
+                        </option>
                     );
                 })}
             </select>
