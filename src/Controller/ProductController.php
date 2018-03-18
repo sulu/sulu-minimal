@@ -5,14 +5,17 @@ namespace Sulu\Bundle\ProductBundle\Controller;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ferrandini\Urlizer;
 use FOS\RestBundle\Routing\ClassResourceInterface;
+use Sulu\Bundle\CategoryBundle\Entity\CategoryRepositoryInterface;
 use Sulu\Bundle\MediaBundle\Entity\MediaRepositoryInterface;
 use Sulu\Bundle\ProductBundle\Entity\Product;
+use Sulu\Bundle\TagBundle\Tag\TagRepositoryInterface;
 use Sulu\Component\Rest\ListBuilder\FieldDescriptorInterface;
 use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Sulu\Component\Rest\RequestParametersTrait;
 use Sulu\Component\Rest\RestController;
 use Sylius\Component\Attribute\Model\AttributeValue;
 use Sylius\Component\Product\Model\ProductInterface;
+use Sylius\Component\Product\Repository\ProductRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -141,12 +144,21 @@ class ProductController extends RestController implements ClassResourceInterface
         return $this->handleView($this->view([]));
     }
 
-    private function deserialize(Request $request, ProductInterface $product): ProductInterface
+    private function deserialize(Request $request, Product $product): ProductInterface
     {
         $product->setCode($this->getRequestParameter($request, 'code', true));
         $product->setName($this->getRequestParameter($request, 'name', true));
         $product->setDescription($this->getRequestParameter($request, 'description', false, ''));
         $product->setSlug(Urlizer::urlize($product->getName()));
+
+        /** @var ProductRepositoryInterface $mediaRepository */
+        $productRepository = $this->get('sylius.repository.product');
+        $collection = new ArrayCollection();
+        foreach ($this->getRequestParameter($request, 'similarProducts', false, []) as $item) {
+            $product = $productRepository->find($item);
+            $collection->add($product);
+        }
+        $product->setSimilarProducts($collection);
 
         /** @var MediaRepositoryInterface $mediaRepository */
         $mediaRepository = $this->get('sulu.repository.media');
@@ -156,6 +168,24 @@ class ProductController extends RestController implements ClassResourceInterface
             $collection->add($media);
         }
         $product->setMedias($collection);
+
+        /** @var TagRepositoryInterface $tagRepository$tagRepository */
+        $tagRepository = $this->get('sulu.repository.tag');
+        $collection = new ArrayCollection();
+        foreach ($this->getRequestParameter($request, 'tags', false, []) as $item) {
+            $tag = $tagRepository->find($item);
+            $collection->add($tag);
+        }
+        $product->setTags($collection);
+
+        /** @var CategoryRepositoryInterface $mediaRepository */
+        $categoryRepository = $this->get('sulu.repository.category');
+        $collection = new ArrayCollection();
+        foreach ($this->getRequestParameter($request, 'categories', false, [])['ids'] as $item) {
+            $category = $categoryRepository->find($item);
+            $collection->add($category);
+        }
+        $product->setCategories($collection);
 
         foreach ($this->getRequestParameter($request, 'attributes', false, []) as $item) {
             $attribute = $product->getAttributeByCodeAndLocale($item['code']);
@@ -178,7 +208,7 @@ class ProductController extends RestController implements ClassResourceInterface
         return $product;
     }
 
-    private function serialize(string $locale, ProductInterface $product): array
+    private function serialize(string $locale, Product $product): array
     {
         $attributes = [];
         foreach ($product->getAttributes() as $attribute) {
@@ -191,9 +221,24 @@ class ProductController extends RestController implements ClassResourceInterface
             ];
         }
 
+        $products = [];
+        foreach ($product->getSimilarProducts() as $product) {
+            $products[] = $product->getId();
+        }
+
         $medias = ['ids' => []];
         foreach ($product->getMedias() as $media) {
             $medias['ids'][] = $media->getId();
+        }
+
+        $tags = [];
+        foreach ($product->getTags() as $tag) {
+            $tags[] = $tag->getId();
+        }
+
+        $categories = [];
+        foreach ($product->getCategories() as $category) {
+            $categories[] = $category->getId();
         }
 
         return [
@@ -203,7 +248,10 @@ class ProductController extends RestController implements ClassResourceInterface
             'name' => $product->getName(),
             'description' => $product->getDescription(),
             'slug' => $product->getSlug(),
+            'products' => $products,
             'medias' => $medias,
+            'tags' => $tags,
+            'categories' => $categories,
             'attributes' => $attributes,
         ];
     }

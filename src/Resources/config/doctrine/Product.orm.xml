@@ -3,6 +3,9 @@
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
     <entity name="Sulu\Bundle\ProductBundle\Entity\Product" table="sylius_product">
+        <many-to-many field="similarProducts" target-entity="Sylius\Component\Product\Model\ProductInterface"/>
         <many-to-many field="medias" target-entity="Sulu\Bundle\MediaBundle\Entity\MediaInterface"/>
+        <many-to-many field="tags" target-entity="Sulu\Bundle\TagBundle\Tag\TagInterface"/>
+        <many-to-many field="categories" target-entity="Sulu\Bundle\CategoryBundle\Entity\CategoryInterface"/>
     </entity>
 </doctrine-mapping>

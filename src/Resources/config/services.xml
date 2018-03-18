@@ -20,8 +20,13 @@
         </service>
 
         <service id="sulu_sylius_product.content.product_attributes"
-                 class="Sulu\Bundle\ProductBundle\Controller\ProductAttributesContentType">
+                 class="Sulu\Bundle\ProductBundle\Content\ProductAttributesContentType">
             <tag name="sulu.content.type" alias="product_attributes"/>
+        </service>
+
+        <service id="sulu_sylius_product.content.product_selection"
+                 class="Sulu\Bundle\ProductBundle\Content\ProductSelectionContentType">
+            <tag name="sulu.content.type" alias="product_selection"/>
         </service>
     </services>
 </container>

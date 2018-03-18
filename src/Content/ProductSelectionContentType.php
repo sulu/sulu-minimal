@@ -4,11 +4,11 @@ namespace Sulu\Bundle\ProductBundle\Content;
 
 use Sulu\Component\Content\SimpleContentType;
 
-class ProductAttributesContentType extends SimpleContentType
+class ProductSelectionContentType extends SimpleContentType
 {
     public function __construct()
     {
-        parent::__construct('product_attributes', null);
+        parent::__construct('product_aelection', []);
     }
 
     public function getTemplate()
