@@ -17,7 +17,6 @@
             <argument type="service" id="sylius.locale_provider"/>
 
             <tag name="sylius.context.locale" priority="64"/>
-            <tag name="sulu.context" context="admin"/>
         </service>
 
         <service id="sulu_sylius_product.content.product_attributes"

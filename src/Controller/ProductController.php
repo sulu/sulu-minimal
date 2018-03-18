@@ -2,8 +2,10 @@
 
 namespace Sulu\Bundle\ProductBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Ferrandini\Urlizer;
 use FOS\RestBundle\Routing\ClassResourceInterface;
+use Sulu\Bundle\MediaBundle\Entity\MediaRepositoryInterface;
 use Sulu\Bundle\ProductBundle\Entity\Product;
 use Sulu\Component\Rest\ListBuilder\FieldDescriptorInterface;
 use Sulu\Component\Rest\ListBuilder\ListRepresentation;
@@ -146,6 +148,15 @@ class ProductController extends RestController implements ClassResourceInterface
         $product->setDescription($this->getRequestParameter($request, 'description', false, ''));
         $product->setSlug(Urlizer::urlize($product->getName()));
 
+        /** @var MediaRepositoryInterface $mediaRepository */
+        $mediaRepository = $this->get('sulu.repository.media');
+        $collection = new ArrayCollection();
+        foreach ($this->getRequestParameter($request, 'medias', false, ['ids' => []])['ids'] as $item) {
+            $media = $mediaRepository->find($item);
+            $collection->add($media);
+        }
+        $product->setMedias($collection);
+
         foreach ($this->getRequestParameter($request, 'attributes', false, []) as $item) {
             $attribute = $product->getAttributeByCodeAndLocale($item['code']);
             if (!$attribute) {
@@ -180,6 +191,11 @@ class ProductController extends RestController implements ClassResourceInterface
             ];
         }
 
+        $medias = ['ids' => []];
+        foreach ($product->getMedias() as $media) {
+            $medias['ids'][] = $media->getId();
+        }
+
         return [
             'id' => $product->getId(),
             'locale' => $locale,
@@ -187,6 +203,7 @@ class ProductController extends RestController implements ClassResourceInterface
             'name' => $product->getName(),
             'description' => $product->getDescription(),
             'slug' => $product->getSlug(),
+            'medias' => $medias,
             'attributes' => $attributes,
         ];
     }
