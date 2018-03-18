@@ -22,4 +22,11 @@
             <title lang="de">Beschreibung</title>
         </meta>
     </property>
+
+    <property name="attributes" type="product_attributes">
+        <meta>
+            <title lang="en">Attributes</title>
+            <title lang="de">Attribute</title>
+        </meta>
+    </property>
 </properties>

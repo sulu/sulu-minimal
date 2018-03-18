@@ -19,5 +19,10 @@
             <tag name="sylius.context.locale" priority="64"/>
             <tag name="sulu.context" context="admin"/>
         </service>
+
+        <service id="sulu_sylius_product.content.product_attributes"
+                 class="Sulu\Bundle\ProductBundle\Controller\ProductAttributesContentType">
+            <tag name="sulu.content.type" alias="product_attributes"/>
+        </service>
     </services>
 </container>

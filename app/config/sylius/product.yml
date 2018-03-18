@@ -3,4 +3,10 @@ sylius_product:
         product:
             classes:
                 model: Sulu\Bundle\ProductBundle\Entity\Product
-                repository: Sulu\Bundle\ProductBundle\Repository\ProductRepository
+
+sylius_attribute:
+    resources:
+        product:
+            attribute:
+                classes:
+                    model: Sulu\Bundle\ProductBundle\Entity\Attribute

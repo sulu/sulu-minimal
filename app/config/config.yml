@@ -68,9 +68,10 @@ swiftmailer:
 
 # MassiveSearch Configuration
 massive_search:
+    adapter: elastic
     adapters:
-        zend_lucene:
-            basepath: "%kernel.var_dir%/indexes"
+        elastic:
+            hosts: '%elasticsearch%'
 
 # JMS Serializer Configuration
 jms_serializer:

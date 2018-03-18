@@ -9,6 +9,7 @@ use Sulu\Component\Rest\ListBuilder\FieldDescriptorInterface;
 use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Sulu\Component\Rest\RequestParametersTrait;
 use Sulu\Component\Rest\RestController;
+use Sylius\Component\Attribute\Model\AttributeValue;
 use Sylius\Component\Product\Model\ProductInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,7 +30,7 @@ class ProductController extends RestController implements ClassResourceInterface
         $restHelper = $this->get('sulu_core.doctrine_rest_helper');
         $factory = $this->get('sulu_core.doctrine_list_builder_factory');
 
-        $listBuilder = $factory->create($this->container->getParameter('sylius.model.product.class'));
+        $listBuilder = $factory->create($this->getParameter('sylius.model.product.class'));
         $restHelper->initializeListBuilder($listBuilder, $this->getFieldDescriptors($locale));
 
         $idsParameter = $request->get('ids');
@@ -74,7 +75,7 @@ class ProductController extends RestController implements ClassResourceInterface
     {
         $locale = $this->getRequestParameter($request, 'locale', true);
 
-        $repository = $this->container->get('sylius.repository.product');
+        $repository = $this->get('sylius.repository.product');
 
         /** @var Product $product */
         $product = $repository->find($id);
@@ -88,18 +89,15 @@ class ProductController extends RestController implements ClassResourceInterface
     {
         $locale = $this->getRequestParameter($request, 'locale', true);
 
-        $factory = $this->container->get('sylius.factory.product');
-        $manager = $this->container->get('sylius.manager.product');
+        $factory = $this->get('sylius.factory.product');
+        $manager = $this->get('sylius.manager.product');
 
         /** @var Product $product */
         $product = $factory->createNew();
         $product->setCurrentLocale($locale);
         $product->setFallbackLocale('xxx'); // FIXME to disable fallback-locale
 
-        $product->setCode($this->getRequestParameter($request, 'code', true));
-        $product->setName($this->getRequestParameter($request, 'name', true));
-        $product->setDescription($this->getRequestParameter($request, 'description', false, ''));
-        $product->setSlug(Urlizer::urlize($product->getName()));
+        $this->deserialize($request, $product);
 
         $manager->persist($product);
         $manager->flush();
@@ -111,18 +109,15 @@ class ProductController extends RestController implements ClassResourceInterface
     {
         $locale = $this->getRequestParameter($request, 'locale', true);
 
-        $manager = $this->container->get('sylius.manager.product');
-        $repository = $this->container->get('sylius.repository.product');
+        $manager = $this->get('sylius.manager.product');
+        $repository = $this->get('sylius.repository.product');
 
         /** @var Product $product */
         $product = $repository->find($id);
         $product->setCurrentLocale($locale);
         $product->setFallbackLocale('xxx'); // FIXME to disable fallback-locale
 
-        $product->setCode($this->getRequestParameter($request, 'code', true));
-        $product->setName($this->getRequestParameter($request, 'name', true));
-        $product->setDescription($this->getRequestParameter($request, 'description', false, ''));
-        $product->setSlug(Urlizer::urlize($product->getName()));
+        $this->deserialize($request, $product);
 
         $manager->persist($product);
         $manager->flush();
@@ -132,8 +127,8 @@ class ProductController extends RestController implements ClassResourceInterface
 
     public function deleteAction(int $id): Response
     {
-        $manager = $this->container->get('sylius.manager.product');
-        $repository = $this->container->get('sylius.repository.product');
+        $manager = $this->get('sylius.manager.product');
+        $repository = $this->get('sylius.repository.product');
 
         /** @var Product $product */
         $product = $repository->find($id);
@@ -144,8 +139,47 @@ class ProductController extends RestController implements ClassResourceInterface
         return $this->handleView($this->view([]));
     }
 
+    private function deserialize(Request $request, ProductInterface $product): ProductInterface
+    {
+        $product->setCode($this->getRequestParameter($request, 'code', true));
+        $product->setName($this->getRequestParameter($request, 'name', true));
+        $product->setDescription($this->getRequestParameter($request, 'description', false, ''));
+        $product->setSlug(Urlizer::urlize($product->getName()));
+
+        foreach ($this->getRequestParameter($request, 'attributes', false, []) as $item) {
+            $attribute = $product->getAttributeByCodeAndLocale($item['code']);
+            if (!$attribute) {
+                $factory = $this->get('sylius.factory.product_attribute_value');
+                $repository = $this->get('sylius.repository.product_attribute');
+
+                /** @var AttributeValue $attribute */
+                $attribute = $factory->createNew();
+                $attribute->setLocaleCode($this->getRequestParameter($request, 'locale'));
+                $attribute->setAttribute($repository->find($item['id']));
+                $product->addAttribute($attribute);
+            }
+
+            if (array_key_exists('value', $item)) {
+                $attribute->setValue($item['value']);
+            }
+        }
+
+        return $product;
+    }
+
     private function serialize(string $locale, ProductInterface $product): array
     {
+        $attributes = [];
+        foreach ($product->getAttributes() as $attribute) {
+            $attributes[] = [
+                'code' => $attribute->getCode(),
+                'name' => $attribute->getName(),
+                'type' => $attribute->getType(),
+                'value' => $attribute->getValue(),
+                'configuration' => $attribute->getAttribute()->getConfiguration(),
+            ];
+        }
+
         return [
             'id' => $product->getId(),
             'locale' => $locale,
@@ -153,14 +187,15 @@ class ProductController extends RestController implements ClassResourceInterface
             'name' => $product->getName(),
             'description' => $product->getDescription(),
             'slug' => $product->getSlug(),
+            'attributes' => $attributes,
         ];
     }
 
     private function getFieldDescriptors(string $locale): array
     {
-        $factory = $this->fieldDescriptors = $this->get('sulu_core.list_builder.field_descriptor_factory');
+        $factory = $this->get('sulu_core.list_builder.field_descriptor_factory');
 
-        return $factory->getFieldDescriptorForClass(
+        return $this->fieldDescriptors = $factory->getFieldDescriptorForClass(
             $this->getParameter('sylius.model.product.class'),
             ['locale' => $locale]
         );
