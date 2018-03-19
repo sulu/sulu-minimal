@@ -15,4 +15,15 @@
             <title lang="de">Name</title>
         </meta>
     </property>
+    
+    <block name="values" default-type="value">
+        <types>
+            <type name="value">
+                <properties>
+                    <property name="code" type="text_line"/>
+                    <property name="value" type="text_line"/>
+                </properties>
+            </type>
+        </types>
+    </block>
 </properties>

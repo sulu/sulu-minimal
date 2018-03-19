@@ -98,7 +98,7 @@ class ProductController extends RestController implements ClassResourceInterface
         $manager = $this->get('sylius.manager.product');
 
         /** @var Product $product */
-        $product = $factory->createNew();
+        $product = $factory->createWithVariant();
         $product->setCurrentLocale($locale);
         $product->setFallbackLocale('xxx'); // FIXME to disable fallback-locale
 

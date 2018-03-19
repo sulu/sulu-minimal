@@ -8,6 +8,7 @@ use Sulu\Component\Rest\ListBuilder\FieldDescriptorInterface;
 use Sulu\Component\Rest\ListBuilder\ListRepresentation;
 use Sulu\Component\Rest\RequestParametersTrait;
 use Sulu\Component\Rest\RestController;
+use Sylius\Component\Product\Model\ProductOptionValue;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -84,11 +85,11 @@ class OptionController extends RestController implements ClassResourceInterface
         $option = $factory->createNew();
         $option->setCurrentLocale($locale);
         $option->setFallbackLocale('xxx'); // FIXME deactivate fallback
-        $this->deserialize($request, $option);
+        $this->deserialize($request, $option, $locale);
 
         $repository->add($option);
 
-        return $this->handleView($this->view($this->serialize($option)));
+        return $this->handleView($this->view($this->serialize($option, $locale)));
     }
 
     public function getAction(int $id, Request $request): Response
@@ -102,7 +103,7 @@ class OptionController extends RestController implements ClassResourceInterface
         $option->setCurrentLocale($locale);
         $option->setFallbackLocale('xxx'); // FIXME deactivate fallback
 
-        return $this->handleView($this->view($this->serialize($option)));
+        return $this->handleView($this->view($this->serialize($option, $locale)));
     }
 
     public function putAction(int $id, Request $request): Response
@@ -115,11 +116,11 @@ class OptionController extends RestController implements ClassResourceInterface
         $option = $repository->find($id);
         $option->setCurrentLocale($locale);
         $option->setFallbackLocale('xxx'); // FIXME deactivate fallback
-        $this->deserialize($request, $option);
+        $this->deserialize($request, $option, $locale);
 
         $repository->add($option);
 
-        return $this->handleView($this->view($this->serialize($option)));
+        return $this->handleView($this->view($this->serialize($option, $locale)));
     }
 
     public function deleteAction(int $id): Response
@@ -133,19 +134,49 @@ class OptionController extends RestController implements ClassResourceInterface
         return $this->handleView($this->view([]));
     }
 
-    private function deserialize(Request $request, Option $option)
+    private function deserialize(Request $request, Option $option, string $locale)
     {
         $option->setCode($this->getRequestParameter($request, 'code', true));
         $option->setName($this->getRequestParameter($request, 'name', true));
         $option->setPosition(0);
+
+        $added = [];
+        foreach ($this->getRequestParameter($request, 'values', false, []) as $item) {
+            $value = $option->findOrCreateValue($item['code']);
+
+            $value->setCurrentLocale($locale);
+            $value->setFallbackLocale('xxx'); // FIXME deactivate fallback
+
+            $value->setValue($item['value']);
+            $added[] = $item['code'];
+        }
+
+        foreach ($option->getValues() as $value) {
+            if (!in_array($value->getCode(), $added)) {
+                $option->removeValue($value);
+            }
+        }
     }
 
-    private function serialize(Option $option)
+    private function serialize(Option $option, string $locale): array
     {
         return [
             'id' => $option->getId(),
             'code' => $option->getCode(),
             'name' => $option->getName(),
+            'values' => array_values(
+                $option->getValues()->map(
+                    function (ProductOptionValue $value) use ($locale) {
+                        $value->setCurrentLocale($locale);
+                        $value->setFallbackLocale('xxx'); // FIXME deactivate fallback
+                        return [
+                            'id' => $value->getId(),
+                            'code' => $value->getCode(),
+                            'value' => $value->getValue(),
+                        ];
+                    }
+                )->toArray()
+            )
         ];
     }
 
