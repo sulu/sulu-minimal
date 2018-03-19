@@ -41,6 +41,12 @@ class SyliusProductAdmin extends Admin
                 ->addOption('backRoute', 'sulu_sylius.product_list')
                 ->addOption('editRoute', 'sulu_sylius.product_form.detail')
                 ->setParent('sulu_sylius.product_edit_form'),
+            (new Route('sulu_sylius.attribute_list', '/attributes/:locale', 'sulu_admin.list'))
+                ->addOption('title', 'sulu_sylius.attributes')
+                ->addOption('adapters', ['table'])
+                ->addOption('resourceKey', 'attributes')
+                ->addOption('locales', ['de', 'en'])
+                ->addAttributeDefault('locale', 'en'),
         ];
     }
 }

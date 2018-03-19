@@ -14,32 +14,21 @@ class RequestLocaleContext implements LocaleContextInterface
      */
     private $requestStack;
 
-    /**
-     * @var LocaleProviderInterface
-     */
-    private $localeProvider;
-
-    public function __construct(RequestStack $requestStack, LocaleProviderInterface $localeProvider)
+    public function __construct(RequestStack $requestStack)
     {
         $this->requestStack = $requestStack;
-        $this->localeProvider = $localeProvider;
     }
 
     public function getLocaleCode(): string
     {
         $request = $this->requestStack->getMasterRequest();
         if (null === $request) {
-            return 'de';
+            return 'en';
         }
 
         $localeCode = $request->query->get('locale');
         if (null === $localeCode) {
-            return 'de';
-        }
-
-        $availableLocalesCodes = $this->localeProvider->getAvailableLocalesCodes();
-        if (!in_array($localeCode, $availableLocalesCodes, true)) {
-            throw LocaleNotFoundException::notAvailable($localeCode, $availableLocalesCodes);
+            return 'en';
         }
 
         return $localeCode;

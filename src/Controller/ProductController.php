@@ -181,7 +181,7 @@ class ProductController extends RestController implements ClassResourceInterface
         /** @var CategoryRepositoryInterface $mediaRepository */
         $categoryRepository = $this->get('sulu.repository.category');
         $collection = new ArrayCollection();
-        foreach ($this->getRequestParameter($request, 'categories', false, [])['ids'] as $item) {
+        foreach ($this->getRequestParameter($request, 'categories', false, []) as $item) {
             $category = $categoryRepository->find($item);
             $collection->add($category);
         }

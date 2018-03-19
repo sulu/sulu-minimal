@@ -14,7 +14,6 @@
         <service id="sulu_sylius_product.locale_context"
                  class="Sulu\Bundle\ProductBundle\Locale\RequestLocaleContext">
             <argument type="service" id="request_stack"/>
-            <argument type="service" id="sylius.locale_provider"/>
 
             <tag name="sylius.context.locale" priority="64"/>
         </service>

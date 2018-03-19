@@ -2,9 +2,6 @@
 import React from 'react';
 import {observer} from 'mobx-react';
 import {action} from 'mobx';
-import Text from './Text';
-import Integer from './Integer';
-import Select from './Select';
 import AttributesAutoComplete from './AttributesAutoComplete';
 import Attribute from './Attribute';
 
@@ -33,6 +30,16 @@ export default class ProductAttributes extends React.Component<*> {
             value,
             onChange,
         } = this.props;
+
+        if (!value) {
+            return onChange([attribute]);
+        }
+
+        for (let key = 0; key < value.length; key++) {
+            if (value[key].code === attribute.code) {
+                return onChange(value);
+            }
+        }
 
         onChange([...value, attribute]);
     };

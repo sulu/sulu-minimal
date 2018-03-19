@@ -23,13 +23,6 @@
         </meta>
     </property>
 
-    <property name="similarProducts" type="product_selection">
-        <meta>
-            <title lang="en">Media</title>
-            <title lang="de">Medien</title>
-        </meta>
-    </property>
-
     <property name="medias" type="media_selection">
         <meta>
             <title lang="en">Media</title>
@@ -41,6 +34,13 @@
         <meta>
             <title lang="en">Attributes</title>
             <title lang="de">Attribute</title>
+        </meta>
+    </property>
+
+    <property name="similarProducts" type="product_selection">
+        <meta>
+            <title lang="en">Media</title>
+            <title lang="de">Medien</title>
         </meta>
     </property>
 
