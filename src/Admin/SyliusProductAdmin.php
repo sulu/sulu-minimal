@@ -47,6 +47,30 @@ class SyliusProductAdmin extends Admin
                 ->addOption('resourceKey', 'attributes')
                 ->addOption('locales', ['de', 'en'])
                 ->addAttributeDefault('locale', 'en'),
+            (new Route('sulu_sylius.product_option_list', '/options/:locale', 'sulu_admin.list'))
+                ->addOption('title', 'sulu_sylius.options')
+                ->addOption('adapters', ['table'])
+                ->addOption('resourceKey', 'options')
+                ->addOption('locales', ['de', 'en'])
+                ->addAttributeDefault('locale', 'en')
+                ->addOption('addRoute', 'sulu_sylius.product_option_add_form.detail')
+                ->addOption('editRoute', 'sulu_sylius.product_option_edit_form.detail'),
+            (new Route('sulu_sylius.product_option_add_form', '/options/:locale/add', 'sulu_admin.resource_tabs'))
+                ->addOption('resourceKey', 'options')
+                ->addOption('locales', ['de', 'en']),
+            (new Route('sulu_sylius.product_option_add_form.detail', '/details', 'sulu_admin.form'))
+                ->addOption('tabTitle', 'sulu_sylius.option')
+                ->addOption('backRoute', 'sulu_sylius.product_option_list')
+                ->addOption('editRoute', 'sulu_sylius.product_option_edit_form.detail')
+                ->setParent('sulu_sylius.product_option_add_form'),
+            (new Route('sulu_sylius.product_option_edit_form', '/options/:locale/:id', 'sulu_admin.resource_tabs'))
+                ->addOption('resourceKey', 'options')
+                ->addOption('locales', ['de', 'en']),
+            (new Route('sulu_sylius.product_option_edit_form.detail', '/details', 'sulu_admin.form'))
+                ->addOption('tabTitle', 'sulu_sylius.option')
+                ->addOption('backRoute', 'sulu_sylius.product_option_list')
+                ->addOption('editRoute', 'sulu_sylius.product_option_form.detail')
+                ->setParent('sulu_sylius.product_option_edit_form'),
         ];
     }
 }

@@ -3,6 +3,10 @@ sylius_product:
         product:
             classes:
                 model: Sulu\Bundle\ProductBundle\Entity\Product
+        product_option:
+            classes:
+                model: Sulu\Bundle\ProductBundle\Entity\Option
+
 
 sylius_attribute:
     resources:

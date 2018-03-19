@@ -4,4 +4,5 @@
         xsi:schemaLocation="http://friendsofsymfony.github.com/schema/rest https://raw.github.com/FriendsOfSymfony/FOSRestBundle/master/Resources/config/schema/routing/rest_routing-1.0.xsd">
     <import id="sulu_sylius_product.product" type="rest" resource="@ProductBundle/Controller/ProductController.php"/>
     <import id="sulu_sylius_product.attribute" type="rest" resource="@ProductBundle/Controller/AttributeController.php"/>
+    <import id="sulu_sylius_product.option" type="rest" resource="@ProductBundle/Controller/OptionController.php"/>
 </routes>

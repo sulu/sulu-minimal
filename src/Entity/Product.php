@@ -4,9 +4,13 @@ namespace Sulu\Bundle\ProductBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Sulu\Component\Persistence\Model\AuditableInterface;
+use Sulu\Component\Persistence\Model\AuditableTrait;
 
-class Product extends \Sylius\Component\Product\Model\Product
+class Product extends \Sylius\Component\Product\Model\Product implements AuditableInterface
 {
+    use AuditableTrait;
+
     /**
      * @var Collection
      */

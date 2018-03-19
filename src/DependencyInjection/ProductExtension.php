@@ -25,6 +25,10 @@ class ProductExtension extends Extension implements PrependExtensionInterface
                             'form' => ['@ProductBundle/Resources/forms/attributes.xml'],
                             'list' => '%sylius.model.product_attribute.class%',
                         ],
+                        'options' => [
+                            'form' => ['@ProductBundle/Resources/forms/options.xml'],
+                            'list' => '%sylius.model.product_option.class%',
+                        ],
                     ],
                 ]
             );

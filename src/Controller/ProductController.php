@@ -132,14 +132,11 @@ class ProductController extends RestController implements ClassResourceInterface
 
     public function deleteAction(int $id): Response
     {
-        $manager = $this->get('sylius.manager.product');
         $repository = $this->get('sylius.repository.product');
 
         /** @var Product $product */
         $product = $repository->find($id);
-
-        $manager->remove($product);
-        $manager->flush();
+        $repository->remove($product);
 
         return $this->handleView($this->view([]));
     }
