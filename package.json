@@ -2,7 +2,7 @@
     "license": "MIT",
     "repository": "https://github.com/sulu/sulu-minimal.git",
     "scripts": {
-        "build": "rimraf web/adminV2 && webpack -p",
+        "build": "rimraf web/admin/build && webpack -p",
         "watch": "webpack -d -w"
     },
     "dependencies": {
