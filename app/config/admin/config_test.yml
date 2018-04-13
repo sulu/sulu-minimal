@@ -21,10 +21,10 @@ swiftmailer:
 
 doctrine:
     dbal:
-        host: localhost
+        host: "%database_host%"
         dbname: "%database_name%_test"
-        user: root
-        password:
+        user: "%database_user%"
+        password: "%database_password%"
 
 monolog:
     handlers:
