@@ -1,6 +1,5 @@
 imports:
     - { resource: parameters.yml }
-    - { resource: services.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -9,10 +8,12 @@ parameters:
 
 framework:
     #esi:             ~
-    translator: { fallbacks: ["%locale%"] }
+    translator:
+        fallbacks:
+            - '%locale%'
     secret: "%secret%"
     router:
-        resource: "%kernel.root_dir%/config/%sulu.context%/routing_%kernel.environment%.yml"
+        resource: "%kernel.project_dir%/config/%sulu.context%/routing_%kernel.environment%.yml"
         strict_requirements: ~
     form:            ~
     csrf_protection: ~
@@ -31,6 +32,7 @@ framework:
 
 # Twig Configuration
 twig:
+    paths: ['%kernel.project_dir%/templates']
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
 
@@ -79,21 +81,19 @@ jms_serializer:
 
 # SuluCore Configuration
 sulu_core:
-    webspace:
-        config_dir: "%kernel.root_dir%/Resources/webspaces"
     content:
         structure:
             default_type:
                 snippet: "default"
             paths:
                 homepage:
-                    path: "%kernel.root_dir%/Resources/templates/pages"
+                    path: "%kernel.project_dir%/config/sulu/templates/pages"
                     type: "home"
                 page:
-                    path: "%kernel.root_dir%/Resources/templates/pages"
+                    path: "%kernel.project_dir%/config/sulu/templates/pages"
                     type: "page"
                 snippet:
-                    path: "%kernel.root_dir%/Resources/templates/snippets"
+                    path: "%kernel.project_dir%/config/sulu/templates/snippets"
                     type: "snippet"
 
 # SuluDocumentManager Configuration
@@ -116,21 +116,11 @@ sulu_websocket:
         http_host: "%websocket_url%"
         port: "%websocket_port%"
 
-sulu_website:
-    sitemap:
-        dump_dir: "%kernel.var_dir%/sitemaps"
-
 # SuluHttpCache Configuration
 sulu_http_cache:
     proxy_client:
         symfony:
             enabled: true
-
-# SuluMedia Configuration
-sulu_media:
-    storage:
-        local:
-            path: "%kernel.var_dir%/uploads/media"
 
 # Just a dirty hack to get the jms serializer bundle correctly working
 # https://github.com/schmittjoh/JMSSerializerBundle/pull/270#issuecomment-21171800

@@ -9,6 +9,8 @@
  * with this source code in the file LICENSE.
  */
 
+namespace App;
+
 /**
  * The admin kernel is for the backend.
  */
@@ -27,19 +29,5 @@ class AdminKernel extends AbstractKernel
     {
         parent::__construct($environment, $debug);
         $this->setContext(self::CONTEXT_ADMIN);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function registerBundles()
-    {
-        $bundles = parent::registerBundles();
-        $bundles[] = new Symfony\Bundle\SecurityBundle\SecurityBundle();
-        $bundles[] = new Sulu\Bundle\AdminBundle\SuluAdminBundle();
-        $bundles[] = new Sulu\Bundle\CollaborationBundle\SuluCollaborationBundle();
-        $bundles[] = new Sulu\Bundle\PreviewBundle\SuluPreviewBundle();
-
-        return $bundles;
     }
 }

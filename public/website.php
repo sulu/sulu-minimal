@@ -9,8 +9,12 @@
  * with this source code in the file LICENSE.
  */
 
+use App\WebsiteCache;
+use App\WebsiteKernel;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\HttpFoundation\Request;
+
+require __DIR__.'/../vendor/autoload.php';
 
 // Define application environment
 defined('SYMFONY_ENV') || define('SYMFONY_ENV', getenv('SYMFONY_ENV') ?: 'prod');
@@ -19,23 +23,33 @@ defined('SYMFONY_DEBUG') ||
     define('SYMFONY_DEBUG', filter_var(getenv('SYMFONY_DEBUG') ?: SYMFONY_ENV === 'dev', FILTER_VALIDATE_BOOLEAN));
 
 // maintenance mode
-$maintenanceFilePath = __DIR__ . '/../app/maintenance.php';
-if (SULU_MAINTENANCE && file_exists($maintenanceFilePath)) {
+if (SULU_MAINTENANCE) {
+    $maintenanceFilePath = __DIR__ . '/../src/maintenance.php';
     // show maintenance mode and exit if no allowed IP is met
     if (require $maintenanceFilePath) {
         exit();
     }
 }
 
-$loader = require __DIR__ . '/../app/autoload.php';
 include_once __DIR__ . '/../var/bootstrap.php.cache';
 
 if (SYMFONY_DEBUG) {
     Debug::enable();
 }
 
-$kernel = new AdminKernel(SYMFONY_ENV, SYMFONY_DEBUG);
+$kernel = new WebsiteKernel(SYMFONY_ENV, SYMFONY_DEBUG);
 $kernel->loadClassCache();
+
+// Comment this line if you want to use the "varnish" http
+// caching strategy. See http://sulu.readthedocs.org/en/latest/cookbook/caching-with-varnish.html
+if (SYMFONY_ENV !== 'dev') {
+    $kernel = new WebsiteCache($kernel);
+
+    // When using the HttpCache, you need to call the method in your front controller
+    // instead of relying on the configuration parameter
+    Request::enableHttpMethodParameterOverride();
+}
+
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();
