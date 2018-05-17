@@ -68,12 +68,6 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
-# MassiveSearch Configuration
-massive_search:
-    adapters:
-        zend_lucene:
-            basepath: "%kernel.var_dir%/indexes"
-
 # JMS Serializer Configuration
 jms_serializer:
     metadata:

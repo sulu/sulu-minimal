@@ -14,8 +14,6 @@ use App\WebsiteKernel;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\HttpFoundation\Request;
 
-require __DIR__.'/../vendor/autoload.php';
-
 // Define application environment
 defined('SYMFONY_ENV') || define('SYMFONY_ENV', getenv('SYMFONY_ENV') ?: 'prod');
 defined('SULU_MAINTENANCE') || define('SULU_MAINTENANCE', getenv('SULU_MAINTENANCE') ?: false);
@@ -30,6 +28,8 @@ if (SULU_MAINTENANCE) {
         exit();
     }
 }
+
+require __DIR__.'/../vendor/autoload.php';
 
 include_once __DIR__ . '/../var/bootstrap.php.cache';
 
