@@ -13,7 +13,6 @@ framework:
             - '%locale%'
     secret: "%secret%"
     router:
-        resource: "%kernel.project_dir%/config/%sulu.context%/routing_%kernel.environment%.yml"
         strict_requirements: ~
     form:            ~
     csrf_protection: ~

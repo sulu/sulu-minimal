@@ -15,4 +15,3 @@ cmf_routing:
 fos_rest:
     exception:
         enabled: false # temporary fix for the exception controller until FOSRestBundle is updated to 2.0
-

@@ -45,10 +45,10 @@ return [
     Sulu\Bundle\TestBundle\SuluTestBundle::class => ['dev' => true, 'test' => true],
     Symfony\Bundle\DebugBundle\DebugBundle::class => ['dev' => true, 'test' => true],
     // Admin
-    Symfony\Bundle\SecurityBundle\SecurityBundle::class => ['all' => true, 'context' => 'admin'],
-    Sulu\Bundle\AdminBundle\SuluAdminBundle::class => ['all' => true, 'context' => 'admin'],
-    Sulu\Bundle\CollaborationBundle\SuluCollaborationBundle::class => ['all' => true, 'context' => 'admin'],
-    Sulu\Bundle\PreviewBundle\SuluPreviewBundle::class => ['all' => true, 'context' => 'admin'],
+    Symfony\Bundle\SecurityBundle\SecurityBundle::class => ['admin' => true],
+    Sulu\Bundle\AdminBundle\SuluAdminBundle::class => ['admin' => true],
+    Sulu\Bundle\CollaborationBundle\SuluCollaborationBundle::class => ['admin' => true],
+    Sulu\Bundle\PreviewBundle\SuluPreviewBundle::class => ['admin' => true],
     // Website
-    Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle::class => ['all' => true, 'context' => 'website'],
+    Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle::class => ['website' => true],
 ];

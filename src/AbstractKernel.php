@@ -36,10 +36,7 @@ abstract class AbstractKernel extends SuluKernel
         $context = $this->getContext();
         $contents = require $this->getProjectDir().'/config/bundles.php';
         foreach ($contents as $class => $envs) {
-            if (
-                (isset($envs['all']) || isset($envs[$this->environment]))
-                && (!isset($envs['context']) || $context === $envs['context'])
-            ) {
+            if (isset($envs['all']) || isset($envs[$this->environment]) || isset($envs[$context])) {
                 yield new $class();
             }
         }
@@ -68,10 +65,13 @@ abstract class AbstractKernel extends SuluKernel
      */
     protected function configureRoutes(RouteCollectionBuilder $routes)
     {
+        $context = $this->getContext();
         $confDir = $this->getProjectDir().'/config';
 
         $routes->import($confDir.'/{routes}/*'.self::CONFIG_EXTS, '/', 'glob');
+        $routes->import($confDir.'/{routes}/' . $context . '/*'.self::CONFIG_EXTS, '/', 'glob');
         $routes->import($confDir.'/{routes}/'.$this->environment.'/**/*'.self::CONFIG_EXTS, '/', 'glob');
+        $routes->import($confDir.'/{routes}/' . $context . '/'.$this->environment.'/**/*'.self::CONFIG_EXTS, '/', 'glob');
         $routes->import($confDir.'/{routes}'.self::CONFIG_EXTS, '/', 'glob');
     }
 
