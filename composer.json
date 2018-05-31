@@ -15,7 +15,7 @@
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^5.0",
         "incenteev/composer-parameter-handler": "^2.0",
-        "sulu/sulu": "2.0.0-alpha3",
+        "sulu/sulu": "dev-bugfix/preview-project-dir as 2.0",
         "dantleech/phpcr-migrations-bundle": "~1.0",
         "zendframework/zend-stdlib": "^2.3",
         "zendframework/zendsearch": "@dev",
@@ -85,5 +85,11 @@
                 "file": "config/parameters.yml"
             }
         ]
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/alexander-schranz/sulu.git"
+        }
+    ]
 }
