@@ -39,7 +39,10 @@ composer.lock
 
 # npm
 package-lock.json
-/node_modules
+node_modules
+
+# sulu symlink
+assets/admin/vendor
 
 # IDEs
 /.idea
