@@ -9,20 +9,18 @@
  * with this source code in the file LICENSE.
  */
 
-use App\WebsiteCache;
-use App\WebsiteKernel;
+use App\Kernel;
+use Sulu\Bundle\HttpCacheBundle\Cache\SuluHttpCache;
+use Sulu\Component\HttpKernel\SuluKernel;
 use Symfony\Component\Debug\Debug;
+use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
 
-// Define application environment
-defined('SYMFONY_ENV') || define('SYMFONY_ENV', getenv('SYMFONY_ENV') ?: 'prod');
 defined('SULU_MAINTENANCE') || define('SULU_MAINTENANCE', getenv('SULU_MAINTENANCE') ?: false);
-defined('SYMFONY_DEBUG') ||
-    define('SYMFONY_DEBUG', filter_var(getenv('SYMFONY_DEBUG') ?: SYMFONY_ENV === 'dev', FILTER_VALIDATE_BOOLEAN));
 
 // maintenance mode
 if (SULU_MAINTENANCE) {
-    $maintenanceFilePath = __DIR__ . '/../src/maintenance.php';
+    $maintenanceFilePath = __DIR__ . '/maintenance.php';
     // show maintenance mode and exit if no allowed IP is met
     if (require $maintenanceFilePath) {
         exit();
@@ -31,19 +29,37 @@ if (SULU_MAINTENANCE) {
 
 require __DIR__.'/../vendor/autoload.php';
 
-include_once __DIR__ . '/../var/bootstrap.php.cache';
+// The check is to ensure we don't use .env in production
+if (!isset($_SERVER['APP_ENV'])) {
+    if (!class_exists(Dotenv::class)) {
+        throw new \RuntimeException('APP_ENV environment variable is not defined. You need to define environment variables for configuration or add "symfony/dotenv" as a Composer dependency to load variables from a .env file.');
+    }
+    (new Dotenv())->load(__DIR__.'/../.env');
+}
 
-if (SYMFONY_DEBUG) {
+$env = $_SERVER['APP_ENV'] ?? 'dev';
+$debug = (bool) ($_SERVER['APP_DEBUG'] ?? ('prod' !== $env));
+
+if ($debug) {
+    umask(0000);
+
     Debug::enable();
 }
 
-$kernel = new WebsiteKernel(SYMFONY_ENV, SYMFONY_DEBUG);
-$kernel->loadClassCache();
+if ($trustedProxies = $_SERVER['TRUSTED_PROXIES'] ?? false) {
+    Request::setTrustedProxies(explode(',', $trustedProxies), Request::HEADER_X_FORWARDED_ALL ^ Request::HEADER_X_FORWARDED_HOST);
+}
+
+if ($trustedHosts = $_SERVER['TRUSTED_HOSTS'] ?? false) {
+    Request::setTrustedHosts(explode(',', $trustedHosts));
+}
+
+$kernel = new Kernel($env, $debug, SuluKernel::CONTEXT_WEBSITE);
 
 // Comment this line if you want to use the "varnish" http
 // caching strategy. See http://sulu.readthedocs.org/en/latest/cookbook/caching-with-varnish.html
 if (SYMFONY_ENV !== 'dev') {
-    $kernel = new WebsiteCache($kernel);
+    $kernel = new SuluHttpCache($kernel);
 
     // When using the HttpCache, you need to call the method in your front controller
     // instead of relying on the configuration parameter

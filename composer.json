@@ -4,17 +4,17 @@
     "type": "project",
     "description": "The sulu content management framework",
     "require": {
-        "php": "^7.1",
+        "php": "^7.1.3",
+        "ext-iconv": "*",
         "twig/extensions": "^1.0",
         "symfony/config": "^3.4",
+        "symfony/flex": "^1.0",
         "symfony/framework-bundle": "^3.4",
         "symfony/monolog-bridge": "^3.4",
         "symfony/monolog-bundle": "^3.1",
         "symfony/swiftmailer-bundle": "^2.6.4",
         "symfony/twig-bundle": "^3.4",
-        "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^5.0",
-        "incenteev/composer-parameter-handler": "^2.0",
         "sulu/sulu": "dev-bugfix/preview-project-dir as 2.0",
         "dantleech/phpcr-migrations-bundle": "~1.0",
         "zendframework/zend-stdlib": "^2.3",
@@ -32,6 +32,7 @@
         "phpcr/phpcr-shell": "~1.0",
         "symfony/debug": "^3.4",
         "symfony/debug-bundle": "^3.4",
+        "symfony/dotenv": "^3.4",
         "symfony/inflector": "^3.4",
         "symfony/phpunit-bridge": "^3.4",
         "symfony/var-dumper": "^3.4",
@@ -48,22 +49,30 @@
             "App\\Tests\\": "tests/"
         }
     },
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php71": "*",
+        "symfony/polyfill-php70": "*",
+        "symfony/polyfill-php56": "*"
+    },
     "scripts": {
-        "auto-scripts": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget",
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "auto-sulu-scripts": [
+            "Sulu\\Bundle\\TranslateBundle\\Composer\\TranslateScriptHandler::installTranslations",
             "Sulu\\Bundle\\MediaBundle\\Composer\\MediaScriptHandler::initBundle",
             "Massive\\Bundle\\SearchBundle\\Composer\\SearchScriptHandler::initBundle"
         ],
         "post-install-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "@auto-sulu-scripts"
         ],
         "post-update-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "@auto-sulu-scripts"
         ],
         "post-create-project-cmd": [
             "Sulu\\Bundle\\CoreBundle\\Composer\\ScriptHandler::removeComposerLockFromGitIgnore",
@@ -71,20 +80,10 @@
         ]
     },
     "config": {
-        "bin-dir": "bin"
-    },
-    "extra": {
-        "public-dir": "public",
-        "symfony-app-dir": "app",
-        "symfony-bin-dir": "bin",
-        "symfony-web-dir": "public",
-        "symfony-var-dir": "var",
-        "symfony-assets-install": "relative",
-        "incenteev-parameters": [
-            {
-                "file": "config/parameters.yml"
-            }
-        ]
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
     },
     "repositories": [
         {

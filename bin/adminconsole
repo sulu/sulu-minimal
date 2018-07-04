@@ -1,9 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-use App\AdminKernel;
-
 require __DIR__.'/../vendor/autoload.php';
 
-$kernelClass = AdminKernel::class;
+$context = \Sulu\Component\HttpKernel\SuluKernel::;
 include __DIR__ . DIRECTORY_SEPARATOR. 'console.php';

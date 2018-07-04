@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-use App\AdminKernel;
+use Sulu\Component\HttpKernel\SuluKernel;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -18,5 +18,5 @@ if (!$ansi) {
     $io->warning('This command will be executed in the "admin" context. For the "website" context, run ./bin/websiteconsole');
 }
 
-$kernelClass = AdminKernel::class;
+$suluContext = SuluKernel::CONTEXT_ADMIN;
 include __DIR__ . DIRECTORY_SEPARATOR. 'console.php';
