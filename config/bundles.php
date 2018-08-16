@@ -30,7 +30,6 @@ return [
     Sulu\Bundle\LocationBundle\SuluLocationBundle::class => ['all' => true],
     Sulu\Bundle\HttpCacheBundle\SuluHttpCacheBundle::class => ['all' => true],
     Sulu\Bundle\WebsocketBundle\SuluWebsocketBundle::class => ['all' => true],
-    Sulu\Bundle\TranslateBundle\SuluTranslateBundle::class => ['all' => true],
     Sulu\Bundle\DocumentManagerBundle\SuluDocumentManagerBundle::class => ['all' => true],
     Sulu\Bundle\HashBundle\SuluHashBundle::class => ['all' => true],
     Sulu\Bundle\CustomUrlBundle\SuluCustomUrlBundle::class => ['all' => true],
