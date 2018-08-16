@@ -58,7 +58,7 @@ $kernel = new Kernel($env, $debug, SuluKernel::CONTEXT_WEBSITE);
 
 // Comment this line if you want to use the "varnish" http
 // caching strategy. See http://sulu.readthedocs.org/en/latest/cookbook/caching-with-varnish.html
-if (SYMFONY_ENV !== 'dev') {
+if ($env !== 'dev') {
     $kernel = new SuluHttpCache($kernel);
 
     // When using the HttpCache, you need to call the method in your front controller
