@@ -8,7 +8,6 @@
         "ext-iconv": "*",
         "twig/extensions": "^1.0",
         "symfony/config": "^3.4",
-        "symfony/flex": "^1.0",
         "symfony/framework-bundle": "^3.4",
         "symfony/monolog-bridge": "^3.4",
         "symfony/monolog-bundle": "^3.1",
@@ -57,10 +56,11 @@
         "symfony/polyfill-php56": "*"
     },
     "scripts": {
-        "auto-scripts": {
-            "cache:clear": "symfony-cmd",
-            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
-        },
+        "auto-scripts": [
+            "'bin/adminconsole' cache:clear",
+            "'bin/websiteconsole' cache:clear",
+            "'bin/adminconsole' assets:install --symlink --relative %PUBLIC_DIR%"
+        ],
         "auto-sulu-scripts": [
             "Sulu\\Bundle\\MediaBundle\\Composer\\MediaScriptHandler::initBundle",
             "Massive\\Bundle\\SearchBundle\\Composer\\SearchScriptHandler::initBundle"
