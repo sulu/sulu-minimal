@@ -8,6 +8,7 @@
         "ext-iconv": "*",
         "twig/extensions": "^1.0",
         "symfony/config": "^3.4",
+        "symfony/flex": "^1.0",
         "symfony/framework-bundle": "^3.4",
         "symfony/monolog-bridge": "^3.4",
         "symfony/monolog-bundle": "^3.1",
@@ -57,9 +58,9 @@
     },
     "scripts": {
         "auto-scripts": [
-            "'bin/adminconsole' cache:clear",
-            "'bin/websiteconsole' cache:clear",
-            "'bin/adminconsole' assets:install --symlink --relative %PUBLIC_DIR%"
+            "bin/adminconsole cache:clear",
+            "bin/websiteconsole cache:clear",
+            "bin/adminconsole assets:install --symlink --relative"
         ],
         "auto-sulu-scripts": [
             "Sulu\\Bundle\\MediaBundle\\Composer\\MediaScriptHandler::initBundle",
@@ -83,6 +84,10 @@
             "*": "dist"
         },
         "sort-packages": true
+    },
+    "extra": {
+        "symfony-web-dir": "public",
+        "symfony-bin-dir": "bin"
     },
     "repositories": [
         {
