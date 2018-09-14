@@ -58,9 +58,9 @@
     },
     "scripts": {
         "auto-scripts": [
-            "bin/adminconsole cache:clear",
-            "bin/websiteconsole cache:clear",
-            "bin/adminconsole assets:install --symlink --relative"
+            "adminconsole cache:clear",
+            "websiteconsole cache:clear",
+            "adminconsole assets:install --symlink --relative"
         ],
         "auto-sulu-scripts": [
             "Sulu\\Bundle\\MediaBundle\\Composer\\MediaScriptHandler::initBundle",
@@ -80,6 +80,7 @@
         ]
     },
     "config": {
+        "bin-dir": "bin",
         "preferred-install": {
             "*": "dist"
         },
