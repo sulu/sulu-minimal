@@ -84,11 +84,5 @@
     "extra": {
         "symfony-web-dir": "public",
         "symfony-bin-dir": "bin"
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/alexander-schranz/sulu.git"
-        }
-    ]
+    }
 }
