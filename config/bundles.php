@@ -44,9 +44,9 @@ return [
     Symfony\Bundle\DebugBundle\DebugBundle::class => ['dev' => true, 'test' => true],
     // Admin
     Symfony\Bundle\SecurityBundle\SecurityBundle::class => ['all' => true, 'admin' => true],
-    Sulu\Bundle\AdminBundle\SuluAdminBundle::class => ['all' => true,'admin' => true],
-    Sulu\Bundle\CollaborationBundle\SuluCollaborationBundle::class => ['all' => true,'admin' => true],
-    Sulu\Bundle\PreviewBundle\SuluPreviewBundle::class => ['all' => true,'admin' => true],
+    Sulu\Bundle\AdminBundle\SuluAdminBundle::class => ['all' => true, 'admin' => true],
+    Sulu\Bundle\CollaborationBundle\SuluCollaborationBundle::class => ['all' => true, 'admin' => true],
+    Sulu\Bundle\PreviewBundle\SuluPreviewBundle::class => ['all' => true, 'admin' => true],
     // Website
-    Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle::class => ['all' => true,'website' => true],
+    Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle::class => ['all' => true, 'website' => true],
 ];
