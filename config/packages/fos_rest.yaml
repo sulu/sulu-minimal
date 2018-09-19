@@ -1,0 +1,4 @@
+fos_rest:
+    zone:
+        - { path: ^/admin/* }
+        - { path: ^/api/* }
