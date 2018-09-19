@@ -46,8 +46,8 @@ script:
   # Test if PHPUnit installation works
   - bin/simple-phpunit
   # Lint Twig files
-  - bin/adminconsole lint:twig app/Resources/views
+  - bin/adminconsole lint:twig templates
   # Lint Yaml files
-  - bin/adminconsole lint:yaml app/config
+  - bin/adminconsole lint:yaml config
   # Test webpack build
   - npm run build
