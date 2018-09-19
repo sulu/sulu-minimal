@@ -39,14 +39,12 @@ install:
   - npm install
   # Create database for build test
   - bin/adminconsole doctrine:database:create
-  # Create database for unit test
-  - bin/adminconsole doctrine:database:create --env=test
 
 script:
   # Test if installation works
   - bin/adminconsole sulu:build dev --no-interaction
   # Test if PHPUnit installation works
-  - SYMFONY_ENV=test bin/simple-phpunit
+  - bin/simple-phpunit
   # Lint Twig files
   - bin/adminconsole lint:twig app/Resources/views
   # Lint Yaml files
