@@ -7,22 +7,18 @@
         "php": "^7.1.3",
         "ext-iconv": "*",
         "twig/extensions": "^1.0",
-        "symfony/config": "^3.4|^4.0",
-        "symfony/css-selector": "^3.4|^4.0",
-        "symfony/dom-crawler": "^3.4|^4.0",
-        "symfony/framework-bundle": "^3.4|^4.0",
-        "symfony/monolog-bridge": "^3.4|^4.0",
+        "symfony/config": "^3.4 || ^4.0",
+        "symfony/framework-bundle": "^3.4 || ^4.0",
+        "symfony/monolog-bridge": "^3.4 || ^4.0",
         "symfony/monolog-bundle": "^3.1",
-        "symfony/swiftmailer-bundle": "^2.6.4|^3.0",
+        "symfony/swiftmailer-bundle": "^2.6.4 || ^3.0",
         "symfony/twig-bundle": "^3.4",
         "sensio/framework-extra-bundle": "^5.0",
         "incenteev/composer-parameter-handler": "^2.0",
-        "sulu/sulu": "dev-feature/deprecations",
-        "dantleech/phpcr-migrations-bundle": "dev-master as 1.1.0",
+        "sulu/sulu": "dev-develop",
+        "dantleech/phpcr-migrations-bundle": "^1.1",
         "zendframework/zend-stdlib": "^2.3",
         "zendframework/zendsearch": "@dev",
-        "massive/build-bundle": "@dev",
-        "massive/search-bundle": "@dev",
         "jackalope/jackalope-doctrine-dbal": "^1.2.5",
         "jackalope/jackalope-jackrabbit": "^1.2.0",
         "doctrine/doctrine-fixtures-bundle": "~2.4",
@@ -32,14 +28,14 @@
     },
     "require-dev": {
         "phpcr/phpcr-shell": "~1.1.1",
-        "symfony/debug": "^3.4|^4.0",
-        "symfony/debug-bundle": "^3.4|^4.0",
-        "symfony/dotenv": "^3.4|^4.0",
-        "symfony/inflector": "^3.4|^4.0",
-        "symfony/phpunit-bridge": "^3.4|^4.0",
-        "symfony/var-dumper": "^3.4|^4.0",
-        "symfony/web-profiler-bundle": "^3.4|^4.0",
-        "symfony/web-server-bundle": "^3.4|^4.0"
+        "symfony/debug": "^3.4 || ^4.0",
+        "symfony/debug-bundle": "^3.4 || ^4.0",
+        "symfony/dotenv": "^3.4 || ^4.0",
+        "symfony/inflector": "^3.4 || ^4.0",
+        "symfony/phpunit-bridge": "^3.4 || ^4.0",
+        "symfony/var-dumper": "^3.4 || ^4.0",
+        "symfony/web-profiler-bundle": "^3.4 || ^4.0",
+        "symfony/web-server-bundle": "^3.4 || ^4.0"
     },
     "autoload": {
         "psr-4": {
@@ -85,11 +81,5 @@
     "extra": {
         "symfony-web-dir": "public",
         "symfony-bin-dir": "bin"
-    },
-    "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/wachterjohannes/sulu.git"
-        }
-    ]
+    }
 }
