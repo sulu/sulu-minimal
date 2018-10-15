@@ -26,20 +26,16 @@ matrix:
         - MAILER_URL=null://localhost
         - SULU_ADMIN_EMAIL=
         - DATABASE_URL=mysql://root:@127.0.0.1/sulu_test
-        - DATABASE_VERSION=5.6
-        - DATABASE_CHARSET=utf8mb4
-        - DATABASE_COLLATE=utf8mb4_unicode_ci
         - COMPOSER_FLAGS="--no-interaction"
 
     # Without ENVIRONMENT variables
     - php: 7.2
       env:
         - COMPOSER_CREATE: true
+        - NPM_BUILD: true
 
 script:
-  # Test composer create project
-  - echo $TRAVIS_PULL_REQUEST_BRANCH
-  - echo $TRAVIS_PULL_REQUEST_SLUG
+  # Install project over composer create and set env variables in .env file
   - |
     if [[ $COMPOSER_CREATE = true ]]; then
         composer create-project sulu/sulu-minimal ../test-create-project-dir --repository="{\"type\":\"path\",\"url\":\"./\"}" --stability=dev -n
@@ -47,8 +43,18 @@ script:
         php -r "file_put_contents('.env', str_replace('DATABASE_URL=#mysql://db_user:db_password@127.0.0.1:3306/db_name', 'DATABASE_URL=mysql://root:@127.0.0.1:3306/sulu_test', file_get_contents('.env')));"
         php -r "file_put_contents('.env', str_replace('APP_ENV=dev', 'APP_ENV=test', file_get_contents('.env')));"
     fi
-  - ls -lh
-  - pwd
+  # Install NPM
+  - |
+    if [[ $NPM_BUILD = true ]]; then
+        nvm install 8
+        npm install -g npm
+        npm install
+    fi
+  # Test NPM build
+  - |
+    if [[ $NPM_BUILD = true ]]; then
+        npm run build
+    fi
   # Test if installation works
   - bin/adminconsole sulu:build dev --no-interaction
   # Validate database schema
