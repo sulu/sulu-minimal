@@ -13,6 +13,7 @@ namespace App;
 
 use FOS\HttpCache\SymfonyCache\HttpCacheAware;
 use FOS\HttpCache\SymfonyCache\HttpCacheProvider;
+use Sulu\Bundle\HttpCacheBundle\Cache\SuluHttpCache;
 use Sulu\Component\HttpKernel\SuluKernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -20,6 +21,12 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 class Kernel extends SuluKernel implements HttpCacheProvider
 {
     use HttpCacheAware;
+
+    public function __construct(string $environment, bool $debug, string $suluContext)
+    {
+        parent::__construct($environment, $debug, $suluContext);
+        $this->setHttpCache(new SuluHttpCache($this));
+    }
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader)
     {
