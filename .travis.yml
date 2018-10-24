@@ -40,7 +40,8 @@ matrix:
       install:
         - composer create-project sulu/sulu-minimal ../test-create-project-dir --repository="{\"type\":\"path\",\"url\":\"./\"}" --stability=dev -n
         - cd ../test-create-project-dir
-        - echo 'DATABASE_URL=mysql://root:@127.0.0.1:3306/sulu_test' >> .env.local
+        - echo 'DATABASE_URL=mysql://root:@127.0.0.1:3306/sulu' >> .env.local
+        - echo 'DATABASE_URL=mysql://root:@127.0.0.1:3306/sulu_test' >> .env.test.local
       env:
         - NPM_BUILD=true
         - COMPOSER_VALIDATE_FLAGS="--strict --no-check-publish"
