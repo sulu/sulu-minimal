@@ -67,3 +67,9 @@ script:
   - bin/adminconsole lint:twig templates
   # Lint Yaml files
   - bin/adminconsole lint:yaml config
+  # Debug container
+  - bin/adminconsole debug:container --show-private
+  - bin/websiteconsole debug:container --show-private
+  # Debug routes
+  - bin/adminconsole debug:router
+  - bin/websiteconsole debug:router
