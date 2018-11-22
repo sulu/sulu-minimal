@@ -31,9 +31,9 @@ install:
 script:
   # Test if installation works
   - bin/adminconsole sulu:build dev --no-interaction
-  # Test if PHPUnit installation works
-  - SYMFONY_PHPUNIT_VERSION=5.7.27 bin/simple-phpunit
   # Lint Twig files
-  - bin/adminconsole lint:twig app/Resources/views
+  - bin/adminconsole lint:twig templates/
   # Lint Yaml files
-  - bin/adminconsole lint:yaml app/config
+  - bin/adminconsole lint:yaml config/
+  # Test if PHPUnit installation works
+  - bin/simple-phpunit
