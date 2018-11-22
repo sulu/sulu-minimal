@@ -32,8 +32,8 @@ script:
   # Test if installation works
   - bin/adminconsole sulu:build dev --no-interaction
   # Lint Twig files
-  - bin/adminconsole lint:twig templates/
+  - bin/adminconsole lint:twig app/Resources/views
   # Lint Yaml files
-  - bin/adminconsole lint:yaml config/
+  - bin/adminconsole lint:yaml app/config
   # Test if PHPUnit installation works
   - bin/simple-phpunit
