@@ -56,7 +56,6 @@
     },
     "scripts": {
         "sulu-auto-scripts": [
-            "# Use sulu-auto-scripts to avoid problems with symfony/flex: https://github.com/symfony/flex/issues/431",
             "@php bin/adminconsole cache:clear",
             "@php bin/websiteconsole cache:clear",
             "@php bin/adminconsole assets:install --symlink --relative",
