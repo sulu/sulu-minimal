@@ -9,8 +9,7 @@ Welcome to the Sulu Minimal Edition - the recommended skeleton to start a new [S
 
 ## Getting started
 
-The [documentation](http://docs.sulu.io/)
-how to start a sulu project can be found under [http://docs.sulu.io/en/latest/book/getting-started.html](http://docs.sulu.io/en/latest/book/getting-started.html).
+Starting a new Sulu project is explained in our [documentation](http://docs.sulu.io/en/latest/book/getting-started.html).
 
 ## Issues
 
