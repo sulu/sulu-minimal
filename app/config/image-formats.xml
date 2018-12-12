@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<formats xmlns="http://schemas.sulu.io/media/formats"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://schemas.sulu.io/media/formats http://schemas.sulu.io/media/formats-1.1.xsd">
+
+    <!-- Fixed width and dynamic height
+    <format key="300x">
+        <meta>
+            <title lang="en">Header Image</title>
+            <title lang="de">Headerbild</title>
+        </meta>
+
+        <scale x="300"/>
+    </format>
+    -->
+
+    <!-- Dynamic width and fixed height
+    <format key="x200">
+        <meta>
+            <title lang="en">Avatar Image</title>
+            <title lang="de">Avatarbild</title>
+        </meta>
+
+        <scale y="200"/>
+    </format>
+    -->
+
+    <!-- Fixed width and fixed height
+    <format key="300x200">
+        <meta>
+            <title lang="en">Teaser Image</title>
+            <title lang="de">Teaserbild</title>
+        </meta>
+
+        <scale x="300" y="200"/>
+    </format>
+    -->
+
+    <!-- Max width and max height
+    <format key="300x200-inset">
+        <meta>
+            <title lang="en">Slider Image</title>
+            <title lang="de">Sliderbild</title>
+        </meta>
+
+        <scale x="300" y="200" mode="inset"/>
+    </format>
+    -->
+
+    <!--
+    Render an image from the media_selection in a specific format the following way:
+
+    <img src="{{ image.thumbnails['300x'] }}" alt="{{ image.title }}" title="{{ image.description|default(image.title) }}">
+    -->
+</formats>
