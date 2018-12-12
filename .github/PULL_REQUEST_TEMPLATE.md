@@ -19,7 +19,7 @@ Which problem does the PR fix? (remove this section if you linked an issue above
 
 #### Example Usage
 
-```yaml
+```php
 // If you added new features, show examples of how to use them here
 // (remove this section if not a new feature)
 
