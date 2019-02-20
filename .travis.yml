@@ -45,12 +45,13 @@ script:
   - |
     if [[ $NPM_BUILD = true ]]; then
         nvm install 8
-        npm install -g npm
+        cd assets/admin
         npm install
     fi
   - |
     if [[ $NPM_BUILD = true ]]; then
         npm run build
+        cd ../..
     fi
   - composer validate --strict
   - bin/adminconsole sulu:build dev --no-interaction
