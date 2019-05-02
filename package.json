@@ -43,6 +43,7 @@
         "postcss-nested": "^2.1.0",
         "postcss-simple-vars": "^4.0.0",
         "raw-loader": "^0.5.1",
+        "regenerator-runtime": "^0.13.2",
         "url-search-params-polyfill": "^2.0.0",
         "webpack": "^4.20.2",
         "webpack-clean-obsolete-chunks": "^0.4.0",
