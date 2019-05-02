@@ -9,7 +9,7 @@ module.exports = (env, argv) => {
     const config = webpackConfig(env, argv);
 
     // For adding custom admin js file uncomment the following line:
-    // config.entry.unshift(path.resolve(__dirname, 'assets/admin/index.js'));
+    // config.entry.push(path.resolve(__dirname, 'assets/admin/index.js'));
 
     return config;
 };
