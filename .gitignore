@@ -44,6 +44,7 @@ composer.lock
 # npm
 package-lock.json
 node_modules
+/public/build/**/*.map
 
 # phpunit
 .phpunit
