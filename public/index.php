@@ -42,7 +42,7 @@ if ($trustedHosts = $_SERVER['TRUSTED_HOSTS'] ?? $_ENV['TRUSTED_HOSTS'] ?? false
 
 $suluContext = SuluKernel::CONTEXT_WEBSITE;
 
-if (preg_match('/^\/admin(\/|$)/', $_SERVER['REQUEST_URI'])) {
+if (preg_match('#^' . Kernel::ADMIN_PREFIX . '(/|$)#', $_SERVER['REQUEST_URI'])) {
     $suluContext = SuluKernel::CONTEXT_ADMIN;
 }
 

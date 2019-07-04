@@ -11,14 +11,14 @@ security:
             id: sulu_security.user_provider
 
     access_control:
-        - { path: ^/admin/reset, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/security/reset, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/_wdt, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/translations, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin, roles: ROLE_USER }
+        - { path: "^%sulu_admin_prefix%/reset", roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "^%sulu_admin_prefix%/security/reset", roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "^%sulu_admin_prefix%/login$", roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "^%sulu_admin_prefix%/_wdt", roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "^%sulu_admin_prefix%/translations", roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "^%sulu_admin_prefix%$", roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "^%sulu_admin_prefix%/$", roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "^%sulu_admin_prefix%", roles: ROLE_USER }
 
     firewalls:
         admin:

@@ -20,6 +20,8 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class Kernel extends SuluKernel implements HttpCacheProvider
 {
+    const ADMIN_PREFIX = '/my-admin';
+
     /**
      * @var HttpKernelInterface
      */
@@ -47,5 +49,15 @@ class Kernel extends SuluKernel implements HttpCacheProvider
         }
 
         return $this->httpCache;
+    }
+
+    protected function getKernelParameters()
+    {
+        return array_merge(
+            parent::getKernelParameters(),
+            [
+                'sulu_admin_prefix' => self::ADMIN_PREFIX
+            ]
+        );
     }
 }

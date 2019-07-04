@@ -1,0 +1,5 @@
+framework:
+    session:
+        cookie_path: "%sulu_admin_prefix%"
+    fragments:
+        path: "%sulu_admin_prefix%/_fragments"

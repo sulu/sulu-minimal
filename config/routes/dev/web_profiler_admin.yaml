@@ -2,10 +2,10 @@ _wdt:
     defaults:
         _requestAnalyzer: false
     resource: "@WebProfilerBundle/Resources/config/routing/wdt.xml"
-    prefix:   /admin/_wdt
+    prefix:   "%sulu_admin_prefix%/_wdt"
 
 _profiler:
     defaults:
         _requestAnalyzer: false
     resource: "@WebProfilerBundle/Resources/config/routing/profiler.xml"
-    prefix:   /admin/_profiler
+    prefix:   "%sulu_admin_prefix%/_profiler"
