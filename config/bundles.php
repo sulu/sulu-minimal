@@ -48,4 +48,5 @@ return [
     FOS\JsRoutingBundle\FOSJsRoutingBundle::class => ['all' => true, 'admin' => true],
     // Website
     Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle::class => ['all' => true, 'website' => true],
+    Sulu\Bundle\AudienceTargetingBundle\SuluAudienceTargetingBundle::class => ['all' => true],
 ];
