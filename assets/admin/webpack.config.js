@@ -9,7 +9,7 @@ module.exports = (env, argv) => {
     argv = argv ? argv : {};
 
     env.project_root_path = path.resolve(__dirname, '..', '..');
-    env.node_modules_path = path.resolve(__dirname ,'node_modules');
+    env.node_modules_path = path.resolve(__dirname, 'node_modules');
 
     const config = webpackConfig(env, argv);
     config.entry = path.resolve(__dirname, 'index.js');
