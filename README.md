@@ -1,6 +1,6 @@
-> This repository is no longer the recommended way to start a [sulu](https://github.com/sulu/sulu) project have. Please have a look at the [documentation](http://docs.sulu.io/) to find out how to start a new project using the new [sulu/skeleton](https://github.com/sulu/skeleton) repository.
+> This repository is no longer the recommended way to start a [sulu](https://github.com/sulu/sulu) project. Please have a look at the [documentation](http://docs.sulu.io/) to find out how to start a new project using the new [sulu/skeleton](https://github.com/sulu/skeleton) repository.
 
-# Sulu Minimal Edition
+# Sulu 1.6.x Minimal Edition
 
 [![GitHub license](https://img.shields.io/github/license/sulu/sulu-minimal.svg)](https://github.com/sulu/sulu-minimal/blob/master/LICENSE)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/sulu/sulu-minimal.svg)](https://github.com/sulu/sulu-minimal/releases)
