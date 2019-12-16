@@ -1,5 +1,6 @@
 sudo: false
 
+dist: trusty
 language: php
 
 cache:
@@ -11,6 +12,7 @@ matrix:
     - php: 5.5
       env:
         - COMPOSER_FLAGS="--prefer-dist --no-interaction"
+        - ENABLE_SWAP=true
     - php: 7.1
       env:
         - COMPOSER_FLAGS="--prefer-dist --no-interaction"
@@ -20,6 +22,14 @@ before_install:
   - phpenv config-add tests/travis.php.ini
 
 install:
+  - | # enable swap
+    if [[ $ENABLE_SWAP == 'true' ]]; then
+        sudo fallocate -l 4G /swapfile
+        sudo chmod 600 /swapfile
+        sudo mkswap /swapfile
+        sudo swapon /swapfile
+        sudo sysctl vm.swappiness=10
+    fi
   # Install dependencies
   - travis_retry composer update $COMPOSER_FLAGS
   - composer info -i
