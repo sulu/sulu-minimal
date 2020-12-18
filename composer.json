@@ -25,7 +25,7 @@
         "sensio/distribution-bundle": "^5.0.6",
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "~2.1",
-        "sulu/sulu": "~1.6.34",
+        "sulu/sulu": "~1.6.39",
         "dantleech/phpcr-migrations-bundle": "~1.0",
         "handcraftedinthealps/zendsearch": "^2.0",
         "massive/build-bundle": "^0.3 || ^0.4",
