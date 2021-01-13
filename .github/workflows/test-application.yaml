@@ -18,12 +18,10 @@ jobs:
                 include:
                     - php-version: '5.5'
                       php-extensions: 'ctype, iconv, mysql, gd'
-                      composer-flags: '--prefer-lowest --prefer-dist --no-interaction'
                       tools: 'composer:v1'
 
                     - php-version: '7.4'
                       php-extensions: 'ctype, iconv, mysql, imagick'
-                      composer-flags: '--prefer-dist --no-interaction'
                       tools: 'composer:v2'
 
         services:
@@ -63,7 +61,7 @@ jobs:
             - name: Install dependencies
               run: |
                   composer validate
-                  composer update ${{ matrix.composer-flags }}
+                  composer update --prefer-dist --no-interaction
 
             - name: Create database
               run: |
