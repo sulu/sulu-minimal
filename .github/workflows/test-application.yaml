@@ -62,7 +62,7 @@ jobs:
 
             - name: Install dependencies
               run: |
-                  composer validate --strict
+                  composer validate
                   composer update ${{ matrix.composer-flags }}
 
             - name: Create database
