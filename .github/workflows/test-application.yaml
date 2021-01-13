@@ -1,0 +1,82 @@
+name: Test application
+
+on:
+    pull_request:
+    push:
+        branches:
+            - '[0-9]+.[0-9]+'
+            - '[0-9]+.x'
+
+jobs:
+    test:
+        name: "Test and build with php ${{ matrix.php-version }}"
+        runs-on: ubuntu-latest
+
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    - php-version: '5.5'
+                      php-extensions: 'ctype, iconv, mysql, gd'
+                      composer-flags: '--prefer-lowest --prefer-dist --no-interaction'
+                      tools: 'composer:v1'
+
+                    - php-version: '7.4'
+                      php-extensions: 'ctype, iconv, mysql, imagick'
+                      composer-flags: '--prefer-dist --no-interaction'
+                      tools: 'composer:v2'
+
+        services:
+            mysql:
+                image: mysql:5.5
+                env:
+                    MYSQL_ALLOW_EMPTY_PASSWORD: yes
+                ports:
+                    - 3306:3306
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
+
+        steps:
+            - name: Checkout project
+              uses: actions/checkout@v2
+
+            - name: Install and configure PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php-version }}
+                  extensions: ${{ matrix.php-extensions }}
+                  tools: ${{ matrix.tools }}
+                  coverage: none
+
+            - name: Get composer cache directory
+              id: composer-cache-dir
+              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+            - name: Cache dependencies
+              uses: actions/cache@v2
+              id: composer-cache
+              with:
+                  path: ${{ steps.composer-cache-dir.outputs.dir }}
+                  key: ${{ runner.os }}-composer-${{ hashFiles('composer.json', 'composer.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-composer-
+
+            - name: Install dependencies
+              run: |
+                  composer validate --strict
+                  composer update ${{ matrix.composer-flags }}
+
+            - name: Create database
+              run: |
+                  bin/adminconsole doctrine:database:create
+                  bin/adminconsole doctrine:database:create --env test
+
+            - name: Build sulu
+              run: bin/adminconsole sulu:build dev --no-interaction
+
+            - name: Lint
+              run: |
+                  bin/adminconsole lint:twig app/Resources/views
+                  bin/adminconsole lint:yaml app/config
+
+            - name: Run tests
+              run: bin/simple-phpunit
