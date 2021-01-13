@@ -71,10 +71,10 @@ jobs:
             - name: Build sulu
               run: bin/adminconsole sulu:build dev --no-interaction
 
-            - name: Lint
+            - name: Lint code
               run: |
                   bin/adminconsole lint:twig app/Resources/views
                   bin/adminconsole lint:yaml app/config
 
-            - name: Run tests
+            - name: Execute test cases
               run: bin/simple-phpunit

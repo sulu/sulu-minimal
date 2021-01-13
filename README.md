@@ -4,7 +4,7 @@
 
 [![GitHub license](https://img.shields.io/github/license/sulu/sulu-minimal.svg)](https://github.com/sulu/sulu-minimal/blob/1.6/LICENSE)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/sulu/sulu-minimal.svg)](https://github.com/sulu/sulu-minimal/releases)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/sulu/sulu-minimal/Test%20Application/1.6?label=test-workflow)](https://github.com/sulu/sulu-minimal/actions)
+[![Test workflow status](https://img.shields.io/github/workflow/status/sulu/sulu-minimal/Test%20Application/1.6?label=test-workflow)](https://github.com/sulu/sulu-minimal/actions)
 
 Welcome to the Sulu Minimal Edition - the skeleton to start a new [Sulu](https://github.com/sulu/sulu) project.
 
