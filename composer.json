@@ -1,4 +1,5 @@
 {
+    "abandoned": "sulu/skeleton",
     "name": "sulu/sulu-minimal",
     "license": "MIT",
     "type": "project",
